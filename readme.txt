@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, greg mulhauser
 Requires at least: 2.7
 Tested up to: 2.8.2
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -105,6 +105,9 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 3. Extensive usage guide and introduction to SEO
 
 == Changelog ==
+
+= 1.0.1 =
+* Whoops, screenshot names misspelled
 
 = 1.0 =
 * Initial public release
