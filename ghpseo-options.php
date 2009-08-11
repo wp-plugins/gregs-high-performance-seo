@@ -35,6 +35,11 @@ $problems = array( // these indicate presence of other plugins which may cause p
 				'name' => 'Platinum SEO Pack',
 				'warning' => $standard_warning,
 				 ),
+			'metaseo' => array(
+				'class' => 'MetaSeoPack',
+				'name' => 'Meta SEO Pack',
+				'warning' => $standard_warning,
+				 ),
 			);
 $pages = array ( // file names and titles for each page of options
 			   'default' => array(

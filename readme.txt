@@ -3,8 +3,8 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, greg mulhauser
 Requires at least: 2.7
-Tested up to: 2.8.2
-Stable tag: 1.0.1
+Tested up to: 2.8.3
+Stable tag: 1.0.2
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -106,10 +106,14 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Changelog ==
 
-= 1.0.1 =
+= 1.0.2, 11 August 2009 =
+* Updated list of plugins which, due to their use of output buffering hacks, may interfere with other plugins such as this one that keep to the standard APIs
+* Full testing with WordPress 2.8.3 (no changes)
+
+= 1.0.1, 31 July 2009 =
 * Whoops, screenshot names misspelled
 
-= 1.0 =
+= 1.0, 23 July 2009 =
 * Initial public release
 
 == Fine Print ==
