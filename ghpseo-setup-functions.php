@@ -133,6 +133,7 @@ $options_set = array(
 	array("index_tag_exclude", "0", 'intval'),
 	array("index_date_exclude", "1", 'intval'),
 	array("index_nofollow", "0", 'intval'),
+	array("canonical_enable", "1", 'intval'),
 	),
 'maintitles' => array(
 	array("enable_main_title_modifications", "1", 'intval'),

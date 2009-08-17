@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.0.2
+Version: 1.0.3
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -40,6 +40,7 @@ $this->plugin_prefix = $plugin_prefix . '_';
 add_filter('the_content',array(&$this,'paged_comments_dupefix'),$this->opt('comment_page_replacement_level'));
 add_action('wp_head', array(&$this,'head_desc'), 2);
 add_action('wp_head', array(&$this,'head_keywords'), 3);
+add_action('wp_head', array(&$this,'canonical'), 5);
 if ($this->opt('index_enable')) {
    remove_action('wp_head', 'noindex', 1);
    add_action('wp_head', array(&$this,'robots'), 4);
@@ -122,7 +123,7 @@ return $key;
 function get_category_quick ($post) { // grab cat(s) for this post
 $cats = get_the_category ($post->ID);
 if (count ($cats) > 0) {
-  foreach ($cats AS $cat)
+  foreach ($cats as $cat)
 		$category[] = $cat->cat_name;
   $category = implode (', ', $category);
 return $category;
@@ -553,6 +554,18 @@ if ($this->opt('obnoxious_mode')) return $output;
 else echo $output;
 return;
 } // end robots
+
+function canonical() { // handle canonical URLs
+global $post;
+if (is_404()) return;
+if (!(is_single() || is_page())) return;
+if ($this->get_comment_page()) return;
+$permalink = get_permalink();
+$output = ($this->opt('canonical_enable')) ? "<link rel=\"canonical\" content=\"{$permalink}\" />\n" : '';
+if ($this->opt('obnoxious_mode')) return $output;
+else echo $output;
+return;
+} // end canonical
 
 } // end class definition
 

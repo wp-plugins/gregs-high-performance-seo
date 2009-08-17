@@ -40,6 +40,11 @@ $problems = array( // these indicate presence of other plugins which may cause p
 				'name' => 'Meta SEO Pack',
 				'warning' => $standard_warning,
 				 ),
+			'seoultimate' => array(
+				'class' => 'SU_Module',
+				'name' => 'SEO Ultimate',
+				'warning' => $standard_warning,
+				 ),
 			);
 $pages = array ( // file names and titles for each page of options
 			   'default' => array(

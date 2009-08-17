@@ -3,8 +3,8 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, greg mulhauser
 Requires at least: 2.7
-Tested up to: 2.8.3
-Stable tag: 1.0.2
+Tested up to: 2.8.4
+Stable tag: 1.0.3
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -31,7 +31,7 @@ To help with that, in addition to extensive inline explanations for each of its 
 This plugin enables you to configure several important SEO characteristics in each of these five areas:
 
 * Main title
-* Head section: description, keywords, robots indexing and following instructions
+* Head section: description, keywords, robots indexing and following instructions, canonical URLs
 * Secondary title, visible in the page body
 * Secondary description, visible in the page body
 * Paged comments and duplicate content
@@ -105,6 +105,12 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 3. Extensive usage guide and introduction to SEO
 
 == Changelog ==
+
+= 1.0.3, 17 August 2009 =
+* Canonical URL support for posts and pages
+* Updated included SEO guide to discuss limiting canonical URLs strictly to posts and pages
+* Updated list of plugins using output buffering hacks
+* Full testing with WordPress 2.8.4 (no changes)
 
 = 1.0.2, 11 August 2009 =
 * Updated list of plugins which, due to their use of output buffering hacks, may interfere with other plugins such as this one that keep to the standard APIs
