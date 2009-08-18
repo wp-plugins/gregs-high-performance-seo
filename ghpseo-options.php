@@ -18,7 +18,7 @@ $replacements = array( // values we'll swap out in our option page text
 					 '%plugin_page%' => $plugin_page,
 					 '%paypal_button%' => $paypal_button,
 					 );
-$standard_warning = __('The plugin listed above may interfere with the usability of many different plugins designed to enhance the functionality of the head section of WordPress output. It may interfere with the normal operation of this plugin:', $domain);
+$standard_warning = __('The plugin listed above, which employs output buffering hacks to circumvent limitations imposed by WordPress APIs, may interfere with the usability of many different plugins designed to enhance the functionality of the head section of WordPress output. It may interfere with the normal operation of this plugin:', $domain);
 $problems = array( // these indicate presence of other plugins which may cause problems
 			'headspace' => array(
 				'class' => 'HeadSpace2_Plugin',
@@ -43,6 +43,11 @@ $problems = array( // these indicate presence of other plugins which may cause p
 			'seoultimate' => array(
 				'class' => 'SU_Module',
 				'name' => 'SEO Ultimate',
+				'warning' => $standard_warning,
+				 ),
+			'wpseo' => array(
+				'class' => 'WPlize',
+				'name' => 'wpSEO',
 				'warning' => $standard_warning,
 				 ),
 			);

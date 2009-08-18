@@ -1,10 +1,10 @@
 === Greg's High Performance SEO ===
 Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
-Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, greg mulhauser
+Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, greg mulhauser
 Requires at least: 2.7
 Tested up to: 2.8.4
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -54,7 +54,7 @@ The plugin provides configurable additions for the Post and Page writing and edi
 
 = Automatic Conflict Checker =
 
-A built-in conflict checker will let you know if it detects that other plugins may be interfering with your SEO preferences.
+A built-in conflict checker will let you know if it detects that other plugins may be using output buffering hacks that can interfere with your SEO preferences.
 
 = Support for Legacy SEO Plugins =
 
@@ -67,6 +67,7 @@ Greg's High Performance SEO also provides built-in support for titles and keywor
 * Platinum SEO
 * Related Posts
 * SEO Title Tags
+* wpSEO
 
 WordPress itself seamlessly imports legacy data from several plugins, providing automatic support for the following additional plugins:
 
@@ -105,6 +106,11 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 3. Extensive usage guide and introduction to SEO
 
 == Changelog ==
+
+= 1.0.4, 18 August 2009 =
+* Support for old data left by wpSEO
+* Tweak for canonical URL support for posts and pages
+* Updated list of plugins using output buffering hacks
 
 = 1.0.3, 17 August 2009 =
 * Canonical URL support for posts and pages

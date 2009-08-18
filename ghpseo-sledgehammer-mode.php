@@ -12,7 +12,7 @@ function ghpseo_obnoxious_mode_handler($header) { // modify the buffer contents
 global $ghpseo; // grab our main object
 // replace the title, strip old head meta (if they exist), and add our own
 $header = preg_replace('/<title>([\w\W]*?)<\/title>/','<title>' . $ghpseo->select_title(true,false) . '</title>',$header);
-$header = preg_replace("/<link rel ?= ?[\"']canonical[\"'] content ?= ?[\"']([\w\W]*?)[\"'] \/>/i",'',$header);
+$header = preg_replace("/<link rel ?= ?[\"']canonical[\"'] href ?= ?[\"']([\w\W]*?)[\"'] \/>/i",'',$header);
 $header = str_replace('</title>', "</title>" . $ghpseo->canonical(), $header);
 $replacements = array('description' => 'head_desc',
 					  'keywords' => 'head_keywords',
