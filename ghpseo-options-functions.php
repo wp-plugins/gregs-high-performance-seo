@@ -175,7 +175,7 @@ else {
 $warningprefix = __('Warning: Possible conflict with', $domain);
 $warningend = ($remedy != '') ? $remedy : __('For best results, please disable the interfering plugin',$domain);
 $message = <<<EOT
-<div class="{$warningclass}">
+<div class="{$warningclass} error fade">
 <p><strong><em>{$warningprefix} '{$conflict}'</em></strong></p>
 <p>{$warning} <em>{$name}</em>.</p>
 <p>{$warningend} '{$conflict}'</strong>.</p>
