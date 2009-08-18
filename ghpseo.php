@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.0.4
+Version: 1.0.5
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -233,9 +233,11 @@ function get_legacy_title() { // grab titles stored by old SEO plugins
 global $post;
 $legacy = '';
 if ($this->opt('enable_secondary_titles_legacy')) {
-	$legacy = get_post_meta($post->ID, 'title', true);
-	if ('' == $legacy) $legacy = get_post_meta($post->ID, '_headspace_page_title', true);
-	if ('' == $legacy) $legacy = get_post_meta($post->ID, '_wpseo_edit_title', true);
+	$supported = array('_aioseop_title','_headspace_page_title','title','_wpseo_edit_title');
+	foreach ($supported as $titlefield) {
+		$legacy = get_post_meta($post->ID, $titlefield, true);
+		if ($legacy != '') break;
+		} // end loop over legacy titles to check
 	if (('' == $legacy) && $this->opt('enable_seott')) { // SEO Title Tag is slightly more involved
 	   $seott = $this->opt_clean('seott_key_name');
 	   if ('' != $seott) $legacy = get_post_meta($post->ID, $seott, true);
@@ -396,7 +398,7 @@ else
 		   elseif ($this->opt('use_secondary_for_head')) $description = strip_tags($this->get_meta_clean($post->ID,'secondary_desc', true));
 		   if ($description != '') $custom = $secondary_fallback = true; // flag will tell us if this was secondary description
 		   elseif ($this->opt('enable_descriptions_legacy')) {
-				  $supported = array('description','_headspace_description','_wpseo_edit_description');
+				  $supported = array('_aioseop_description','_headspace_description','description','_wpseo_edit_description');
 				  foreach ($supported as $descfield) {
 					  $description = get_post_meta($post->ID, $descfield, true);
 					  if ($description != '') {$custom = true; break;}
@@ -496,7 +498,7 @@ if ($posttags) {
 
 if ($this->opt('enable_keywords_legacy')) {
 // add in any custom field keywords
-$supported = array('keyword','keywords','autometa','_headspace_keywords','_headspace_metakey', '_wpseo_edit_keywords');
+$supported = array('_aioseop_keywords','_headspace_keywords','_headspace_metakey', '_wpseo_edit_keywords','autometa','keyword','keywords');
 foreach ($supported as $fieldname) {
 	$extras = get_post_meta($post->ID, $fieldname, true);
 	if ($extras != '') $taglist .= ', ' . $this->legacy_keyword_cleanup($extras);
