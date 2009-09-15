@@ -46,7 +46,7 @@ $problems = array( // these indicate presence of other plugins which may cause p
 				'warning' => $standard_warning,
 				 ),
 			'wpseo' => array(
-				'class' => 'WPlize',
+				'class' => 'wpSEO',
 				'name' => 'wpSEO',
 				'warning' => $standard_warning,
 				 ),

@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.0.5
+Version: 1.0.6
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -151,7 +151,7 @@ return array (
 	"frontispaged" => array ('home_paged',''),
 	"single" => array ('post',array("%post_title%" => single_post_title('',false), "%post_title_custom%" => $secondary, "%category_title%" => $cat_of_post)),
 	"tag" => array ('tag',array("%tag_title%" => $this->titlecase(single_tag_title('',false)),"%tag_desc%" => $tag_desc)),
-	"author" => array ('author',array("%author_name%" => $this->get_author())),
+	"author" => array ('author',array("%author_name%" => $this->get_author(), "%author_desc%" => $this->get_author('description'))),
 	"search" => array ('search',array("%search_terms%" => strip_tags(stripslashes(get_search_query())))),
 	"category" => array ('category',array("%category_title%" => $this->titlecase(single_cat_title('',false)),"%category_desc%"=>$cat_desc)),
 	"page" => array ('page',array("%page_title%" => ltrim(wp_title('',false)), "%page_title_custom%" => $secondary)),
@@ -342,10 +342,10 @@ if ($this->get_comment_page() && $this->opt('paged_comments_dupefix')) {
 else {return $content;}
 } // end paged comments dupefix
 
-function get_author() { // simple author grabber
+function get_author($meta = 'display_name') { // simple author meta grabber
 global $wp_query;
 $curauth = $wp_query->get_queried_object();
-return $curauth->display_name;
+return $curauth->$meta;
 } // end get author
 
 function trimmer($totrim='',$length=160,$ellipsis='...') { // trim strings down to size

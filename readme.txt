@@ -1,10 +1,10 @@
 === Greg's High Performance SEO ===
 Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
-Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, greg mulhauser
+Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 2.8.4
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -25,6 +25,8 @@ Greg's High Performance SEO now offers to everyone the kinds of benefits previou
 The plugin will help you to leverage the built-in capabilities of WordPress -- which is already a semi-decent SEO platform right out the box -- by taking important content and meta-content that would otherwise not be included on the page and making it visible and useful to humans and machines alike. This is not automatic: it will take a little effort on your part. (Genuine SEO is never automatic.) But this plugin is designed to provide a sufficiently rich palette of tools that optimizing your site as it grows can become second nature to you.
 
 To help with that, in addition to extensive inline explanations for each of its over 100 separate settings, Greg's High Performance SEO also includes a detailed 5000-word usage guide and introduction to WordPress SEO. So you'll never be left in the dark as to what on Earth a particular setting should or could be used for.
+
+Although this plugin is not supported by the author in the WPMU (WordPress Multiuser) environment, independent testing by our community of users confirms that it is fully compatible with the WPMU platform.
 
 = What Can You Do With Greg's High Performance SEO Plugin? =
 
@@ -106,6 +108,11 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 3. Extensive usage guide and introduction to SEO
 
 == Changelog ==
+
+= 1.0.6, 14 September 2009 =
+* Author's biographical information can now be displayed in the secondary description for author archives
+* Independent testing by our community of users indicates that this plugin is fully compatible with the current version of WPMU (WordPress Multiuser)
+* Updated list of plugins using output buffering hacks
 
 = 1.0.5, 18 August 2009 =
 * Additional support for old data left by All in One SEO Pack
