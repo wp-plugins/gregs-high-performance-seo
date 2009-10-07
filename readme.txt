@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 2.8.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -108,6 +108,9 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 3. Extensive usage guide and introduction to SEO
 
 == Changelog ==
+
+= 1.0.7, 7 October 2009 =
+* Fixed a minor problem which arose under certain circumstances while using Sledgehammer Mode
 
 = 1.0.6, 14 September 2009 =
 * Author's biographical information can now be displayed in the secondary description for author archives

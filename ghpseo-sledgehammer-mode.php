@@ -9,6 +9,7 @@ return;
 } // end obnoxious mode startup
 
 function ghpseo_obnoxious_mode_handler($header) { // modify the buffer contents
+if (is_feed()) return $header; // if we're in a feed, don't mess with it
 global $ghpseo; // grab our main object
 // replace the title, strip old head meta (if they exist), and add our own
 $header = preg_replace('/<title>([\w\W]*?)<\/title>/','<title>' . $ghpseo->select_title(true,false) . '</title>',$header);
