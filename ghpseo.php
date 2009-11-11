@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.0.7
+Version: 1.0.9
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -381,6 +381,11 @@ $replace = array (
 return str_replace(array_keys($replace), array_values($replace), $content);
 } // end cleaning out fancies
 
+function clean_shortcodes($content) { // get rid of shortcode junk
+$content = preg_replace('|\[(.+?)\](.+?\[/\\1\])?|s', '', $content);
+return trim($content);
+} // end cleaning up shortcode junk
+
 function head_desc() { // construct the head description
 global $post,$paged;
 if (is_404()) return;
@@ -444,6 +449,7 @@ else
 	
 	} // end of handling other than comments pages
 
+$description = $this->clean_shortcodes($description); // get rid of shortcodes
 $description = $this->clean_fancies($description); // get rid of common typographical fanciness
 $description = str_replace('"',"'",$description); // double quotes have to be htmlspecialchar-ed, but that wastes space in meta description
 $description = preg_replace('/  +/',' ',$description); // get rid of extraneous spaces
