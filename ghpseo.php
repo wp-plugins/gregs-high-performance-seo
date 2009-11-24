@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.0.9
+Version: 1.1
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -104,6 +104,7 @@ global $wp_query,$paged,$post;
 $key = '';
 if (is_front_page() && (!is_paged())) $key = 'frontnotpaged';
 elseif (is_front_page() && is_paged()) $key = 'frontispaged';
+elseif (is_home()) $key = 'home';
 elseif (is_single()) $key = 'single';
 elseif (is_tag()) $key = 'tag';
 elseif (is_author()) $key = 'author';
@@ -150,6 +151,7 @@ $tag_desc = (($type == 'tag') && function_exists('tag_description')) ? $this->st
 return array (
 	"frontnotpaged" => array ('home',''),
 	"frontispaged" => array ('home_paged',''),
+	"home" => array ('home',''),
 	"single" => array ('post',array("%post_title%" => single_post_title('',false), "%post_title_custom%" => $secondary, "%category_title%" => $cat_of_post)),
 	"tag" => array ('tag',array("%tag_title%" => $this->titlecase(single_tag_title('',false)),"%tag_desc%" => $tag_desc)),
 	"author" => array ('author',array("%author_name%" => $this->get_author(), "%author_desc%" => $this->get_author('description'))),
