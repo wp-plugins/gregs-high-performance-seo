@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 2.9
-Stable tag: 1.1
+Stable tag: 1.2
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -108,6 +108,9 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 3. Extensive usage guide and introduction to SEO
 
 == Changelog ==
+
+= 1.2, 26 November 2009 (Thanksgiving Edition) =
+* Significant changes under the hood provide much more robust support for configurations which take advantage of WordPress's static front page/posts options
 
 = 1.1, 24 November 2009 =
 * Tested with WordPress 2.9 beta 1

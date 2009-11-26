@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.1
+Version: 1.2
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -87,6 +87,19 @@ foreach ($words as $word) {
 return ucfirst(join(" ", $newwords)); // ucfirst again in case first word was in the exception list
 } // end titlecase
 
+function id_to_check($type = false) { // detect special case where WP's static front page options mess up the ID we need to check for titles, descriptions, etc.
+global $post;
+if (!$type) $type = $this->get_type_key(); // if no type passed in, grab it
+if ($type == 'homestaticposts') $tocheck = get_option('page_for_posts');
+elseif ($type == 'homestaticfront') $tocheck = get_option('page_on_front');
+else $tocheck = $post->ID;
+return $tocheck;
+} // end id_to_check
+
+function treat_like_post($type) { // detect whether we are on a page with its own custom fields
+return (in_array($type, array('single', 'page', 'homestaticfront', 'homestaticposts'))) ? true : false;
+} // end treat_like_post
+
 function get_comment_page() { // check for whether we're on a paged comment page
 global $wp_query,$post,$overridden_cpage;
 // the following line checks for $overridden_cpage getting set by WP function 'comments_template', which may happen in case some other rude plugin is output buffering the entire page, corrupting the value of the query var cpage that we need; note it will only be set if the original cpage was empty
@@ -102,7 +115,9 @@ else return true;
 function get_type_key() { // what kind of page are we on?
 global $wp_query,$paged,$post;
 $key = '';
-if (is_front_page() && (!is_paged())) $key = 'frontnotpaged';
+if (is_home() && get_option('page_for_posts') && (get_option('show_on_front') == 'page')) $key = 'homestaticposts';
+elseif (is_front_page() && get_option('page_on_front') && (get_option('show_on_front') == 'page')) $key = 'homestaticfront';
+elseif (is_front_page() && (!is_paged())) $key = 'frontnotpaged';
 elseif (is_front_page() && is_paged()) $key = 'frontispaged';
 elseif (is_home()) $key = 'home';
 elseif (is_single()) $key = 'single';
@@ -143,7 +158,7 @@ return trim($stripped);
 function get_swaps($type='') { // return replacements necessary to construct titles and descriptions
 // the returned array holds all our option base names for main (_title) and secondary (_title_secondary) titles and secondary descriptions (_desc), plus arrays with any additional swapping that needs to be done in addition to the basics already included locally by whatever function is calling this one
 global $wp_query,$paged,$post;
-$secondary = (($type == 'single') || ($type == 'page')) ? $this->get_secondary_title() : '';
+$secondary = $this->treat_like_post($type) ? $this->get_secondary_title() : '';
 $full_url = ($type == '404') ? 'http://' . str_replace('\\','/',htmlspecialchars(strip_tags(stripslashes($_SERVER['SERVER_NAME']))) .   htmlspecialchars(strip_tags(stripslashes($_SERVER['REQUEST_URI'])))) : '';
 $cat_desc = ($type == 'category') ? wp_specialchars_decode($this->strip_para(stripslashes(category_description()),$this->opt('cat_desc_leave_breaks')),ENT_QUOTES) : '';
 $cat_of_post = ($type == 'single') ? $this->titlecase($this->get_category_quick($post)) : '';
@@ -151,6 +166,8 @@ $tag_desc = (($type == 'tag') && function_exists('tag_description')) ? $this->st
 return array (
 	"frontnotpaged" => array ('home',''),
 	"frontispaged" => array ('home_paged',''),
+	"homestaticfront" => array ('home_static_front',array("%page_title%" => single_post_title('',false), "%page_title_custom%" => $secondary)),
+	"homestaticposts" => array ('home_static_posts',array("%page_title%" => ltrim(wp_title('',false)), "%page_title_custom%" => $secondary)),
 	"home" => array ('home',''),
 	"single" => array ('post',array("%post_title%" => single_post_title('',false), "%post_title_custom%" => $secondary, "%category_title%" => $cat_of_post)),
 	"tag" => array ('tag',array("%tag_title%" => $this->titlecase(single_tag_title('',false)),"%tag_desc%" => $tag_desc)),
@@ -185,6 +202,7 @@ function select_desc($echo=true) { // select and construct the secondary descrip
 global $post;
 $desc = '';
 $suffix = '_desc';
+$key = $this->get_type_key();
 if ($this->opt('enable_secondary_desc')) {
 	$default = $this->opt_clean('secondary_desc_override_text');
 	if ($this->opt('secondary_desc_override_all') && !$this->get_comment_page()) {
@@ -192,11 +210,12 @@ if ($this->opt('enable_secondary_desc')) {
 		if (($desc == '') && !($this->opt('secondary_desc_use_blank')))
 			$desc = get_the_excerpt();
 		}
-	elseif (is_single() || is_page()) {
+	elseif ($this->treat_like_post($key)) { // singles, pages, and static front page or posts
 		if ($this->get_comment_page() && $this->opt('paged_comments_descfix'))
 		   $desc = $this->select_desc_comments();
 		else {
-		   $desc = $this->get_meta_clean($post->ID, 'secondary_desc', true);
+		   $tocheck = $this->id_to_check($key);
+		   $desc = $this->get_meta_clean($tocheck, 'secondary_desc', true);
 		   if (($desc == '') && has_excerpt())
 			   $desc = get_the_excerpt();
 		   if (($desc == '') || ($this->opt('secondary_desc_override_excerpt')))
@@ -206,7 +225,6 @@ if ($this->opt('enable_secondary_desc')) {
 			 } // end handling single posts and pages not comments
 		} // end handling single posts and pages
 	else {
-		 $key = $this->get_type_key();
 		 $swap = array(
 					  "%blog_name%" => get_bloginfo('name'),
 					  "%blog_desc%" => get_bloginfo('description'),
@@ -252,7 +270,8 @@ return $legacy;
 function get_secondary_title() { // select the secondary title, if enabled
 global $post;
 if ($this->opt('enable_secondary_titles')) {
-	$secondary = $this->get_meta_clean($post->ID, 'secondary_title', true);
+	$tocheck = $this->id_to_check();
+	$secondary = $this->get_meta_clean($tocheck, 'secondary_title', true);
 	if ('' != $secondary) return $this->prepout($secondary);
 	elseif ($this->opt('enable_secondary_titles_legacy') && !$this->opt('legacy_title_invert')) $secondary = $this->get_legacy_title();
 	if ('' != $secondary) return $this->prepout(stripslashes(wp_specialchars_decode($secondary, ENT_QUOTES)));
@@ -295,7 +314,6 @@ return;
 
 function get_other_titles($main=false) { // get titles for other than paged comments; $main controls whether to return main or secondary title
 global $wp_query,$paged,$post;
-
 $suffix = ($main || !($this->opt('enable_secondary_titles'))) ? '_title' : '_title_secondary';
 
 $swap = array("%blog_name%" => get_bloginfo('name'));
@@ -397,13 +415,15 @@ if ($this->opt('paged_comments_meta_enable') && $this->get_comment_page()) {
 	} // end handling comments pages
 else
 	{ // all the rest of this occurs only if we don't need a custom comments page meta
+	$key = $this->get_type_key();
 	$default  = get_bloginfo('name') . ': ' . get_bloginfo('description');
 	$custom = $secondary_fallback = false;
-	if (is_single() || is_page()) {
+	if ($this->treat_like_post($key)) { // posts, pages, and static front page or posts
 	   if ($this->opt('enable_alt_description')) {
-		   $description = $this->get_meta_clean($post->ID,'alternative_description', true);
+		   $tocheck = $this->id_to_check($key);
+		   $description = $this->get_meta_clean($tocheck,'alternative_description', true);
 		   if ($description != '') $custom = true;
-		   elseif ($this->opt('use_secondary_for_head')) $description = strip_tags($this->get_meta_clean($post->ID,'secondary_desc', true));
+		   elseif ($this->opt('use_secondary_for_head')) $description = strip_tags($this->get_meta_clean($tocheck,'secondary_desc', true));
 		   if ($description != '') $custom = $secondary_fallback = true; // flag will tell us if this was secondary description
 		   elseif ($this->opt('enable_descriptions_legacy')) {
 				  $supported = array('_aioseop_description','_headspace_description','description','_wpseo_edit_description');
@@ -425,7 +445,6 @@ else
 					"%blog_name%" => get_bloginfo('name'),
 					"%blog_desc%" => get_bloginfo('description'),
 					);
-	   $key = $this->get_type_key();
 	   $metaswaps = $this->get_swaps($key);
 	   $suffix = '_meta_desc';   
 	   if ($key != '') {
@@ -491,7 +510,7 @@ if ($defaults == '')
 // 	$temp_query = clone $wp_query; // note clone method is PHP5 only
 // else $temp_query = $wp_query;
 $taglist = '';
-if (is_single() || is_page() ) : if ( have_posts() ) : while ( have_posts() ) : the_post(); // annoyingly, run a loop here to get what we need
+if (is_single() || is_page() ) : if ( have_posts() ) : while ( have_posts() ) : the_post(); // annoyingly, run a loop here to get what we need; this is why we don't bother with extracting keywords for a static posts page
 if ($this->opt('enable_keywords_custom'))
 	$taglist = $this->get_meta_clean($post->ID,'keywords', true);
 if ($this->opt('enable_keywords_tags'))
