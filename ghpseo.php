@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.2
+Version: 1.3
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -619,11 +619,14 @@ else
    function ghpseo_output($type='main',$echo=true) {
 	  global $ghpseo;
 	  switch ($type) {
-			  case "main": return $ghpseo->select_title(true,$echo);
-			  case "main_title": return $ghpseo->select_title(true,$echo);
-			  case "secondary_title": return $ghpseo->select_title(false,$echo);
-			  case "description": return $ghpseo->select_desc($echo);
+			  case "main": $result = $ghpseo->select_title(true,false); break;
+			  case "main_title": $result = $ghpseo->select_title(true,false); break;
+			  case "secondary_title": $result = $ghpseo->select_title(false,false); break;
+			  case "description": $result = $ghpseo->select_desc(false); break;
 			  }
+	  if ($ghpseo->opt('enable_modifications')) $result = apply_filters('ghpseo_output', $result, $type);
+	  if (!$echo) return $result;
+	  else echo $result;
 	  return;
 	  }
    // last and least, if we're running with output buffering, set it up now:

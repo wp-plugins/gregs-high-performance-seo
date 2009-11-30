@@ -39,6 +39,7 @@ $options_set = array(
 	array("editing_secondary_description_pages", "1", 'intval'),
 	array("editing_counter", "1", 'intval'),
 	array("restrict_access", "1", 'intval'),
+	array("enable_modifications", "0", 'intval'),
 	array("obnoxious_mode", "0", 'intval'),
 	array("dashboard", "1", 'intval'),
 	array("title_case", "1", 'intval'),
