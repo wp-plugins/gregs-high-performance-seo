@@ -4,11 +4,19 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 2.9
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
 == Description ==
+
+= New in This Version =
+
+* Support for excluding attachment pages from indexing
+
+For more details on what's new in the latest main release, version 1.3, please see the update announcement: [Two WordPress Plugins Updated for 2.9](http://counsellingresource.com/features/2009/12/02/wordpress-plugins-updated/)
+
+= Introduction =
 
 WordPress SEO plugins have been done before, but never like this.
 
@@ -108,6 +116,10 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 3. Extensive usage guide and introduction to SEO
 
 == Changelog ==
+
+= 1.3.1, 2 December 2009 =
+* Support for excluding attachment pages from indexing
+* Tested with WordPress 2.9 beta 2
 
 = 1.3, 30 November 2009 =
 * In support of the WordPress 2.9 post type API, this plugin can now be set to enable other plugins to modify the output it provides for main post title, secondary title, and secondary description. A section under the plugin's Instructions tab provides a coding example for plugin authors who are creating new post types.
