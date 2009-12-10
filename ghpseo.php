@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.3.1
+Version: 1.3.2
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -41,6 +41,7 @@ add_filter('the_content',array(&$this,'paged_comments_dupefix'),$this->opt('comm
 add_action('wp_head', array(&$this,'head_desc'), 2);
 add_action('wp_head', array(&$this,'head_keywords'), 3);
 add_action('wp_head', array(&$this,'canonical'), 5);
+if ($this->opt('canonical_disable_builtin') && function_exists('rel_canonical')) remove_action('wp_head', 'rel_canonical');
 if ($this->opt('index_enable')) {
    remove_action('wp_head', 'noindex', 1);
    add_action('wp_head', array(&$this,'robots'), 4);
@@ -588,7 +589,7 @@ return;
 function canonical() { // handle canonical URLs
 global $post;
 if (is_404()) return;
-if (!(is_single() || is_page())) return;
+if (!is_singular()) return;
 if ($this->get_comment_page()) return;
 $permalink = get_permalink();
 $output = ($this->opt('canonical_enable')) ? "<link rel=\"canonical\" href=\"{$permalink}\" />\n" : '';
