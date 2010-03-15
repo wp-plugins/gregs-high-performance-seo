@@ -3,8 +3,8 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 2.9
-Stable tag: 1.3.2
+Tested up to: 2.9.2
+Stable tag: 1.3.3
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,7 +12,8 @@ Configure over 100 separate on-page SEO characteristics. Load just 600 lines of 
 
 = New in This Version =
 
-* Support for disabling the automatic but flawed insertion of canonical URL information under WordPress 2.9
+* Improved handling of titles, secondary titles, and descriptions for manually paged posts and pages
+* Increased support for data left behind by other SEO plugins
 
 For more details on what's new in the latest main release, version 1.3, please see the update announcement: [Two WordPress Plugins Updated for 2.9](http://counsellingresource.com/features/2009/12/02/wordpress-plugins-updated/)
 
@@ -77,6 +78,7 @@ Greg's High Performance SEO also provides built-in support for titles and keywor
 * Platinum SEO
 * Related Posts
 * SEO Title Tags
+* SEO Ultimate
 * wpSEO
 
 WordPress itself seamlessly imports legacy data from several plugins, providing automatic support for the following additional plugins:
@@ -115,7 +117,17 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 2. Paged comments configuration screen
 3. Extensive usage guide and introduction to SEO
 
+== Upgrade Notice ==
+
+= 1.3.3, 15 March 2010 =
+* Improved handling of titles, secondary titles, and descriptions for manually paged posts and pages
+* Increased support for data left behind by other SEO plugins
+
 == Changelog ==
+
+= 1.3.3, 15 March 2010 =
+* Improved handling of titles, secondary titles, and descriptions for manually paged posts and pages
+* Increased support for data left behind by other SEO plugins
 
 = 1.3.2, 10 December 2009 =
 * Support for disabling the automatic but flawed insertion of canonical URL information under WordPress 2.9

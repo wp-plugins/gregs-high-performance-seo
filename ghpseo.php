@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.3.2
+Version: 1.3.3
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -156,9 +156,45 @@ $stripped = str_replace('  ',' ',$stripped); // kill double spaces introduced wh
 return trim($stripped);
 } // end stripping paragraph tags
 
+function is_multipage() { // check for paged post/page; works outside loop
+global $post,$multipage;
+if (!is_singular()) return null;
+if (isset($multipage)) return $multipage;
+else {
+	$content = $post->post_content;
+	if ( strpos( $content, '<!--nextpage-->' ) ) $multipage = 1;
+	else $multipage = 0;
+	}
+return $multipage;
+} // end check for multipage
+
+function this_page() { // return current page
+global $wp_query,$paged;
+if ($paged > 1) return $paged;
+$page = get_query_var('page');
+if (!$page) $page = 1;
+return $page;
+}
+
+function this_page_total() { // return total pages for paged posts/pages
+global $wp_query,$post,$multipage,$numpages;
+if (!is_singular()) return null;
+if (isset($multipage) && isset($numpages)) return $numpages;
+else {
+	$content = $post->post_content;
+//	echo "about to explode";
+	$pages = explode('<!--nextpage-->', $content);
+	$num = count($pages);
+	return $num;
+	}
+return;
+}
+
 function get_swaps($type='') { // return replacements necessary to construct titles and descriptions
 // the returned array holds all our option base names for main (_title) and secondary (_title_secondary) titles and secondary descriptions (_desc), plus arrays with any additional swapping that needs to be done in addition to the basics already included locally by whatever function is calling this one
-global $wp_query,$paged,$post;
+global $wp_query,$paged,$post,$multipage,$numpages;
+$this_page = $this->this_page();
+$this_page_total = ($this->is_multipage()) ? $this->this_page_total() : intval($wp_query->max_num_pages);
 $secondary = $this->treat_like_post($type) ? $this->get_secondary_title() : '';
 $full_url = ($type == '404') ? 'http://' . str_replace('\\','/',htmlspecialchars(strip_tags(stripslashes($_SERVER['SERVER_NAME']))) .   htmlspecialchars(strip_tags(stripslashes($_SERVER['REQUEST_URI'])))) : '';
 $cat_desc = ($type == 'category') ? wp_specialchars_decode($this->strip_para(stripslashes(category_description()),$this->opt('cat_desc_leave_breaks')),ENT_QUOTES) : '';
@@ -180,7 +216,7 @@ return array (
 	"month" => array ('month_archive',array("%month%" => get_the_time('F, Y'))),
 	"day" => array ('day_archive',array("%day%" => get_the_time('F jS, Y'))),
 	"otherdate" => array ('other_date_archive',''),
-	"paged" => array ('paged_modification',array("%page_number%" => $paged, "%page_total%" => intval($wp_query->max_num_pages))),
+	"paged" => array ('paged_modification',array("%page_number%" => $this_page, "%page_total%" => $this_page_total)),
 	"404" => array('404',array("%error_url%" => $full_url)),
 );
 } // end setting array of swaps
@@ -255,7 +291,7 @@ function get_legacy_title() { // grab titles stored by old SEO plugins
 global $post;
 $legacy = '';
 if ($this->opt('enable_secondary_titles_legacy')) {
-	$supported = array('_aioseop_title','_headspace_page_title','title','_wpseo_edit_title');
+	$supported = array('_aioseop_title','_headspace_page_title','title','_wpseo_edit_title','_su_title');
 	foreach ($supported as $titlefield) {
 		$legacy = get_post_meta($post->ID, $titlefield, true);
 		if ($legacy != '') break;
@@ -314,7 +350,7 @@ return;
 } // end select title
 
 function get_other_titles($main=false) { // get titles for other than paged comments; $main controls whether to return main or secondary title
-global $wp_query,$paged,$post;
+global $wp_query,$post;
 $suffix = ($main || !($this->opt('enable_secondary_titles'))) ? '_title' : '_title_secondary';
 
 $swap = array("%blog_name%" => get_bloginfo('name'));
@@ -334,7 +370,7 @@ if ((($key == 'single') || ($key == 'page')) && ($main && $this->opt('legacy_tit
 	} // end handling screwy legacy titles as main titles
 
 if ($title == '') $title = ltrim(wp_title('',false));
-if (is_paged()) { // modify with something like a page number, if this is paged?
+if (is_paged() || $this->is_multipage()) { // modify with something like a page number, if this is paged?
 	$modifier = $this->opt_clean($titleswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
 	if ($modifier != '') $title = str_replace('%prior_title%',$title,$modifier); 
 	$swap = array_merge($swap,$titleswaps['paged']['1']);
@@ -427,7 +463,7 @@ else
 		   elseif ($this->opt('use_secondary_for_head')) $description = strip_tags($this->get_meta_clean($tocheck,'secondary_desc', true));
 		   if ($description != '') $custom = $secondary_fallback = true; // flag will tell us if this was secondary description
 		   elseif ($this->opt('enable_descriptions_legacy')) {
-				  $supported = array('_aioseop_description','_headspace_description','description','_wpseo_edit_description');
+				  $supported = array('_aioseop_description','_headspace_description','description','_wpseo_edit_description','_su_description');
 				  foreach ($supported as $descfield) {
 					  $description = get_post_meta($post->ID, $descfield, true);
 					  if ($description != '') {$custom = true; break;}
@@ -527,7 +563,7 @@ if ($posttags) {
 
 if ($this->opt('enable_keywords_legacy')) {
 // add in any custom field keywords
-$supported = array('_aioseop_keywords','_headspace_keywords','_headspace_metakey', '_wpseo_edit_keywords','autometa','keyword','keywords');
+$supported = array('_aioseop_keywords','_headspace_keywords','_headspace_metakey', '_wpseo_edit_keywords','_su_keywords','autometa','keyword','keywords');
 foreach ($supported as $fieldname) {
 	$extras = get_post_meta($post->ID, $fieldname, true);
 	if ($extras != '') $taglist .= ', ' . $this->legacy_keyword_cleanup($extras);
