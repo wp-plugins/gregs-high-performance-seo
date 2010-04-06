@@ -42,6 +42,8 @@ var $instructions; // indicates whether we're handling an instructions page (i.e
 var $path; // where are we?
 var $submenu; // plain name of submenu we're displaying
 var $thispage; // name of this page, from keys in var $pages
+var $boxed_set = array(); // boxed set of sections to deliver
+var $box_hook; // keeping track of our boxes and box states
 
 function ghpseoOptionsHandler($swap = array(), $pages = array(),$domain,$plugin_prefix='',$subdir='',$instname='') {
 $this->__construct($swap,$pages,$domain,$plugin_prefix,$subdir,$instname);
@@ -53,6 +55,7 @@ $this->replacements = $swap;
 $this->domain = $domain;
 $this->plugin_prefix = $plugin_prefix;
 $this->pages = $pages;
+$this->box_hook = $plugin_prefix . 'optionboxes_';
 $dir = str_replace(basename( __FILE__),"",plugin_basename(__FILE__)); // get plugin folder name
 $base = str_replace("-functions.php","",basename( __FILE__)); // get this file's name without extension, assuming it ends with '-functions.php'
 $this->path = $dir . $base;
@@ -61,6 +64,7 @@ $root = WP_PLUGIN_DIR . '/' . $dir . $subdir; // this is where we're looking for
 $sub = isset ($_GET['submenu']) ? $_GET['submenu'] : '';
 $filetail = ($sub != '') ? "-$sub" : ''; // options file corresponding to this submenu
 $this->submenu = $sub;
+$this->box_hook .= $sub; // need to keep track of box states for each separate sub-page
 $this->instructions = ($sub == $instname) ? true : false; // we'll do less work for the instructions page
 $extraload = $root . '/extra/' . $base . $filetail . '.txt'; // set up for grabbing extra options page content
 $this->ourextra = (file_exists($extraload)) ? file_get_contents($extraload) : '';
@@ -209,6 +213,8 @@ $displaybot = <<<EOT
 {$donation}
 {$conflict}
 {$body}
+EOT;
+$displayfoot = <<<EOT
 {$save}
 </form>
 </div>
@@ -217,6 +223,13 @@ echo $displaytop;
 if (!$this->instructions) settings_fields($settings_prefix . $thispage);
 screen_icon();
 echo $displaybot;
+if (!$this->instructions) {
+	 // NOTE: if we've disabled boxed output at end of do_options, then everything will already be in $body anyway, and no boxes prepared
+	 echo '<div id="poststuff" class="metabox-holder">';
+	 $this->do_meta_boxes_simple($this->box_hook, 'normal', $this->boxed_set);
+	 echo '</div>';
+	 }
+echo $displayfoot;
 return;
 } // end displaying options
 
@@ -234,7 +247,7 @@ $header = wptexturize(__($settings['header'][$stepper], $domain));
 $preface = wptexturize(__($settings['preface'][$stepper], $domain));
 
 if ($header != '')
-	$output .= "<h3>{$header}</h3>\n";
+	$output .= "<!--secstart--><h3>{$header}</h3>\n";
 if (($preface != '') && $full)
 	$output .= "<p>$preface</p>\n";
 if (($header != '') || ($preface != ''))
@@ -324,11 +337,61 @@ $stepper ++;
 
 if ($echo)
 	echo $output;
-else return $output;
-
-return;
+// NOTE: Have now retrofitted to put our output in meta boxes
+// NOTE: Don't like the boxed output? Then just return it...
+//else return $output;
+else $this->boxit($output);
+return null;
 
 } // end function which outputs options
+
+function boxit($output) {
+$boxes = explode('<!--secstart-->', $output);
+foreach ($boxes as $box) {
+	$titleclose = strpos($box,'</h3>');
+	$title = substr($box,0,$titleclose+5);
+	$title = strip_tags($title);
+	$body = substr($box, $titleclose+5, strlen($box) - ($titleclose+5));
+	$this->add_meta_box_simple($body,$title,$this->box_hook);
+	} // end loop over sections
+return;
+}
+
+function add_meta_box_simple($data = null, $title, $page, $context = 'normal', $priority = 'high') {
+// set up a metabox with a simple callback which takes an array as a parameter and echoes the value it finds for the array key corresponding to its own ID
+$id = $this->plugin_prefix . sanitize_title_with_dashes($title);
+$this->boxed_set[$id] = $data;
+add_meta_box($id, $title, create_function('$a', "echo \$a['$id'];"), $page, $context, $priority);
+return;
+}
+
+function do_meta_boxes_simple($hook, $context = 'normal', $data = null) {
+wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false );
+wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false );
+do_meta_boxes($hook, $context, $data);
+$this->postbox_js(); // echo the JS that will initialize our postboxes for us
+return;
+}
+
+function postbox_js() {
+$page = $this->box_hook;
+// note the line about closing postboxes that should be closed no longer seems to be needed
+$js = <<<EOT
+<script type="text/javascript">
+	//<![CDATA[
+	jQuery(document).ready( function($) {
+		// close postboxes that should be closed
+		$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+		// postboxes setup
+		postboxes.add_postbox_toggles('{$page}');
+	});
+	//]]>
+</script>
+EOT;
+echo $js;
+return;
+}
+
 
 } // end class definition
 

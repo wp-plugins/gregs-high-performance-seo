@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 3.0-alpha
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 
 Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,7 +12,7 @@ Configure over 100 separate on-page SEO characteristics. Load just 600 lines of 
 
 = New in This Version =
 
-* To enhance support for e-commerce environments, other plugins can now modify the output of this plugin's canonical URL feature
+* Enhanced admin pages now support user-configurable section boxes which can be re-ordered or closed
 
 For more details on what's new in the latest main release, version 1.3, please see the update announcement: [Two WordPress Plugins Updated for 2.9](http://counsellingresource.com/features/2009/12/02/wordpress-plugins-updated/)
 
@@ -118,10 +118,13 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.3.4, 24 March 2010 =
-* To enhance support for e-commerce environments, other plugins can now modify the output of this plugin's canonical URL feature
+= 1.3.5, 6 April 2010 =
+* Enhanced admin pages now support user-configurable section boxes which can be re-ordered or closed
 
 == Changelog ==
+
+= 1.3.5, 6 April 2010 =
+* Enhanced admin pages now support user-configurable section boxes which can be re-ordered or closed
 
 = 1.3.4, 24 March 2010 =
 * To enhance support for e-commerce environments, other plugins can now modify the output of this plugin's canonical URL feature
