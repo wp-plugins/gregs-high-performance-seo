@@ -1,5 +1,11 @@
 <?php
 
+if (!function_exists ('is_admin')) {
+   header('Status: 403 Forbidden');
+   header('HTTP/1.1 403 Forbidden');
+   exit();
+   }
+
 // Use output buffering only if we really really have to, 'cause it's rude, creates compatibility problems with other plugins, and saps performance unnecessarily
 
 // BEGIN OBNOXIOUS MODE STUFF

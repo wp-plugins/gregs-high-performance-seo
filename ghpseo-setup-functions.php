@@ -1,5 +1,11 @@
 <?php
 
+if (!function_exists ('is_admin')) {
+   header('Status: 403 Forbidden');
+   header('HTTP/1.1 403 Forbidden');
+   exit();
+   }
+
 // This setup class is only loaded if we're actually on admin pages
 
 /*
@@ -27,13 +33,14 @@ class ghpseoSetupHandler {
 var $plugin_prefix; // prefix for this plugin
 var $options_page_details = array(); // setting up our options page
 
-function ghpseoSetupHandler ($plugin_prefix,$location_full,$location_local,$options_page_details) {
-$this->__construct($plugin_prefix,$location_full,$location_local,$options_page_details);
+function ghpseoSetupHandler ($args,$options_page_details) {
+$this->__construct($args,$options_page_details);
 return;
 } 
 
-function __construct($plugin_prefix,$location_full,$location_local,$options_page_details) {
-$this->plugin_prefix = $plugin_prefix;
+function __construct($args,$options_page_details) {
+extract($args);
+$this->plugin_prefix = $prefix;
 $this->options_page_details = $options_page_details;
    // set up all our admin necessities
    add_filter( "plugin_action_links_{$location_local}", array(&$this,'plugin_settings_link'));

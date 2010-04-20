@@ -1,4 +1,11 @@
 <?php
+
+if (!function_exists ('is_admin')) {
+   header('Status: 403 Forbidden');
+   header('HTTP/1.1 403 Forbidden');
+   exit();
+   }
+
 require_once('ghpseo-options-functions.php');
 
 function ghpseo_options_setngo() { // set up our options pages
@@ -90,7 +97,9 @@ $pages = array ( // file names and titles for each page of options
 			   ),
 			   );
 
-$options_handler = new ghpseoOptionsHandler($replacements,$pages,$domain,$plugin_prefix,$subdir,$instname); // prepares settings
+$args = compact('domain','plugin_prefix','subdir','instname');
+
+$options_handler = new ghpseoOptionsHandler($args,$replacements,$pages); // prepares settings
 
 // just in case we need to grab anything from the parsed result first, this is where we'd do it
 

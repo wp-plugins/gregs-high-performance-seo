@@ -1,5 +1,11 @@
 <?php
 
+if (!function_exists ('is_admin')) {
+   header('Status: 403 Forbidden');
+   header('HTTP/1.1 403 Forbidden');
+   exit();
+   }
+
 /*  Copyright (c) 2009 Greg Mulhauser, http://counsellingresource.com
 
 	Developers: If you'd like to use this class for your own plugins, to avoid the monstrosity that is the usual method for creating WordPress options pages, please go right ahead. In return, I'd be much obliged if you could please mention my site and/or plugins on your own site, as well as keeping this message and copyright notice intact with any classes you distribute which are based on this class. (You know the drill: "lots of effort has gone into developing this software, blah blah blah".)
@@ -45,13 +51,14 @@ var $thispage; // name of this page, from keys in var $pages
 var $boxed_set = array(); // boxed set of sections to deliver
 var $box_hook; // keeping track of our boxes and box states
 
-function ghpseoOptionsHandler($swap = array(), $pages = array(),$domain,$plugin_prefix='',$subdir='',$instname='') {
-$this->__construct($swap,$pages,$domain,$plugin_prefix,$subdir,$instname);
+function ghpseoOptionsHandler($args, $replacements = array(), $pages = array()) {
+$this->__construct($args, $replacements,$pages);
 return;
 } 
 
-function __construct($swap = array(), $pages = array(),$domain,$plugin_prefix='',$subdir='',$instname='') {
-$this->replacements = $swap;
+function __construct($args, $replacements = array(), $pages = array()) {
+extract($args);
+$this->replacements = $replacements;
 $this->domain = $domain;
 $this->plugin_prefix = $plugin_prefix;
 $this->pages = $pages;

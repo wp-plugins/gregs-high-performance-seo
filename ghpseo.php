@@ -3,27 +3,23 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.3.5
+Version: 1.3.6
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
 
-/*  Copyright 2009 Greg Mulhauser
+/*  Copyright (c) 2009-10 Greg Mulhauser
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	This WordPress plugin is released under the GNU General Public
+	License (GPL) http://www.gnu.org/licenses/gpl.txt
+	
 */
+
+if (!function_exists ('is_admin')) {
+   header('Status: 403 Forbidden');
+   header('HTTP/1.1 403 Forbidden');
+   exit();
+   }
 
 class gregsHighPerformanceSEO {
 
@@ -646,8 +642,9 @@ if (is_admin()) { // only load the admin stuff if we have to
 	  $prefix = 'ghpseo';
 	  $location_full = __FILE__;
 	  $location_local = plugin_basename(__FILE__);
+	  $args = compact('prefix','location_full','location_local');
 	  $options_page_details = array ('Greg&#8217;s HP SEO Options','High Performance SEO','gregs-high-performance-seo/ghpseo-options.php');
-	  new ghpseoSetupHandler($prefix,$location_full,$location_local,$options_page_details);
+	  new ghpseoSetupHandler($args,$options_page_details);
 	  } // end setup function
    ghpseo_setup_setngo();
    } // end admin-only stuff
