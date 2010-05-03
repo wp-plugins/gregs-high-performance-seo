@@ -264,29 +264,36 @@ if ($this->restrict()) return; // if restricted and current user cannot publish 
 $meta_set = ( 'page' == $_POST['post_type'] ) ? $this->page_set : $this->post_set;
 
 foreach($meta_set as $meta) {
-// Verify this came from the appropriate screen and with authentication
-if ( !wp_verify_nonce( $_POST[$meta['name'].'_noncename'], plugin_basename(__FILE__) )) {
-return $post_id;
-}
-
-if ( 'page' == $_POST['post_type'] ) {
-   if ( !current_user_can( 'edit_page', $post_id ))
-   return $post_id;
-   } else {
-   if ( !current_user_can( 'edit_post', $post_id ))
-   return $post_id;
-}
-
-// We're authenticated, so get on with handling data
-
-$data = ($meta['allow_tags']) ? stripslashes($_POST[$meta['name']]) : strip_tags(stripslashes($_POST[$meta['name']]));
-
-if(get_post_meta($post_id, $meta['name']) == "")
-   add_post_meta($post_id, $meta['name'], $data, true);
-elseif($data != get_post_meta($post_id, $meta['name'], true))
-   update_post_meta($post_id, $meta['name'], $data);
-elseif($data == "")
-   delete_post_meta($post_id, $meta['name'], get_post_meta($post_id, $meta['name'], true));
+   // Verify this came from the appropriate screen and with authentication
+   if ( !wp_verify_nonce( $_POST[$meta['name'].'_noncename'], plugin_basename(__FILE__) )) {
+	  return $post_id;
+	  }
+   
+   if ( 'page' == $_POST['post_type'] ) {
+	  if ( !current_user_can( 'edit_page', $post_id ))
+	  return $post_id;
+	  } else {
+	  if ( !current_user_can( 'edit_post', $post_id ))
+	  return $post_id;
+	  }
+   
+   // We're authenticated, so get on with handling data
+   
+   $data = ($meta['allow_tags']) ? stripslashes($_POST[$meta['name']]) : strip_tags(stripslashes($_POST[$meta['name']]));
+   // 20100503: check for existing data first to address weird problems if user has manually saved multiple fields with same key (thanks to Jason)
+   $existing_data = get_post_meta($post_id, $meta['name'], true);
+   
+   if ($data == "") {
+	  if ($existing_data != "")
+		 delete_post_meta($post_id, $meta['name'], $existing_data);
+	  }
+   else {
+	  if ($existing_data == "")
+		 add_post_meta($post_id, $meta['name'], $data, true);
+	  else
+		 update_post_meta($post_id, $meta['name'], $data);
+	  }
+   
 } // end loop over meta values to store
 return;
 } // end function for saving post metadata

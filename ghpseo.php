@@ -3,16 +3,21 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.3.6
+Version: 1.3.7
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
 
 /*  Copyright (c) 2009-10 Greg Mulhauser
 
-	This WordPress plugin is released under the GNU General Public
-	License (GPL) http://www.gnu.org/licenses/gpl.txt
-	
+    This WordPress plugin is released under the GPL license
+    http://www.opensource.org/licenses/gpl-license.php
+    
+    **********************************************************************
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY -- without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+    *****************************************************************
 */
 
 if (!function_exists ('is_admin')) {
@@ -75,10 +80,10 @@ $words = explode(" ", $string);
 $newwords = array();
 foreach ($words as $word) {
    if (!in_array($word, $exceptions)) {
-	  if (strtoupper($word) != $word) { // mess with it only if not already all caps
-		  $word = ($forcelower) ? ucfirst(strtolower($word)) : ucfirst($word);
-		  }
-	   }
+      if (strtoupper($word) != $word) { // mess with it only if not already all caps
+          $word = ($forcelower) ? ucfirst(strtolower($word)) : ucfirst($word);
+          }
+       }
    array_push($newwords, $word);
 }
 return ucfirst(join(" ", $newwords)); // ucfirst again in case first word was in the exception list
@@ -103,9 +108,9 @@ global $wp_query,$post,$overridden_cpage;
 if ( $overridden_cpage ) return false;
 $page = get_query_var('cpage');
 if ( !$page )
-	$page = 0;
+    $page = 0;
 if ( $page < 1 )
-	return false;
+    return false;
 else return true;
 } // end check for comment page
 
@@ -124,11 +129,11 @@ elseif (is_search()) $key = 'search';
 elseif (is_category()) $key = 'category';
 elseif (is_page()) $key = 'page';
 elseif (is_date()) {
-	if (is_year()) $key = 'year';
-	elseif (is_month()) $key = 'month';
-	elseif (is_day()) $key = 'day';
-	else $key = 'otherdate';
-	} // end handling date-based archives
+    if (is_year()) $key = 'year';
+    elseif (is_month()) $key = 'month';
+    elseif (is_day()) $key = 'day';
+    else $key = 'otherdate';
+    } // end handling date-based archives
 elseif (is_404()) $key = '404';
 elseif (is_feed()) $key = 'feed';
 return $key;
@@ -138,7 +143,7 @@ function get_category_quick ($post) { // grab cat(s) for this post
 $cats = get_the_category ($post->ID);
 if (count ($cats) > 0) {
   foreach ($cats as $cat)
-		$category[] = $cat->cat_name;
+        $category[] = $cat->cat_name;
   $category = implode (', ', $category);
 return $category;
 } else return '';
@@ -157,10 +162,10 @@ global $post,$multipage;
 if (!is_singular()) return null;
 if (isset($multipage)) return $multipage;
 else {
-	$content = $post->post_content;
-	if ( strpos( $content, '<!--nextpage-->' ) ) $multipage = 1;
-	else $multipage = 0;
-	}
+    $content = $post->post_content;
+    if ( strpos( $content, '<!--nextpage-->' ) ) $multipage = 1;
+    else $multipage = 0;
+    }
 return $multipage;
 } // end check for multipage
 
@@ -177,12 +182,12 @@ global $wp_query,$post,$multipage,$numpages;
 if (!is_singular()) return null;
 if (isset($multipage) && isset($numpages)) return $numpages;
 else {
-	$content = $post->post_content;
-//	echo "about to explode";
-	$pages = explode('<!--nextpage-->', $content);
-	$num = count($pages);
-	return $num;
-	}
+    $content = $post->post_content;
+//  echo "about to explode";
+    $pages = explode('<!--nextpage-->', $content);
+    $num = count($pages);
+    return $num;
+    }
 return;
 }
 
@@ -197,23 +202,23 @@ $cat_desc = ($type == 'category') ? wp_specialchars_decode($this->strip_para(str
 $cat_of_post = ($type == 'single') ? $this->titlecase($this->get_category_quick($post)) : '';
 $tag_desc = (($type == 'tag') && function_exists('tag_description')) ? $this->strip_para(tag_description(),$this->opt('tag_desc_leave_breaks')) : '';
 return array (
-	"frontnotpaged" => array ('home',''),
-	"frontispaged" => array ('home_paged',''),
-	"homestaticfront" => array ('home_static_front',array("%page_title%" => single_post_title('',false), "%page_title_custom%" => $secondary)),
-	"homestaticposts" => array ('home_static_posts',array("%page_title%" => ltrim(wp_title('',false)), "%page_title_custom%" => $secondary)),
-	"home" => array ('home',''),
-	"single" => array ('post',array("%post_title%" => single_post_title('',false), "%post_title_custom%" => $secondary, "%category_title%" => $cat_of_post)),
-	"tag" => array ('tag',array("%tag_title%" => $this->titlecase(single_tag_title('',false)),"%tag_desc%" => $tag_desc)),
-	"author" => array ('author',array("%author_name%" => $this->get_author(), "%author_desc%" => $this->get_author('description'))),
-	"search" => array ('search',array("%search_terms%" => strip_tags(stripslashes(get_search_query())))),
-	"category" => array ('category',array("%category_title%" => $this->titlecase(single_cat_title('',false)),"%category_desc%"=>$cat_desc)),
-	"page" => array ('page',array("%page_title%" => ltrim(wp_title('',false)), "%page_title_custom%" => $secondary)),
-	"year" => array ('year_archive',array("%year%" => get_the_time('Y'))),
-	"month" => array ('month_archive',array("%month%" => get_the_time('F, Y'))),
-	"day" => array ('day_archive',array("%day%" => get_the_time('F jS, Y'))),
-	"otherdate" => array ('other_date_archive',''),
-	"paged" => array ('paged_modification',array("%page_number%" => $this_page, "%page_total%" => $this_page_total)),
-	"404" => array('404',array("%error_url%" => $full_url)),
+    "frontnotpaged" => array ('home',''),
+    "frontispaged" => array ('home_paged',''),
+    "homestaticfront" => array ('home_static_front',array("%page_title%" => single_post_title('',false), "%page_title_custom%" => $secondary)),
+    "homestaticposts" => array ('home_static_posts',array("%page_title%" => ltrim(wp_title('',false)), "%page_title_custom%" => $secondary)),
+    "home" => array ('home',''),
+    "single" => array ('post',array("%post_title%" => single_post_title('',false), "%post_title_custom%" => $secondary, "%category_title%" => $cat_of_post)),
+    "tag" => array ('tag',array("%tag_title%" => $this->titlecase(single_tag_title('',false)),"%tag_desc%" => $tag_desc)),
+    "author" => array ('author',array("%author_name%" => $this->get_author(), "%author_desc%" => $this->get_author('description'))),
+    "search" => array ('search',array("%search_terms%" => strip_tags(stripslashes(get_search_query())))),
+    "category" => array ('category',array("%category_title%" => $this->titlecase(single_cat_title('',false)),"%category_desc%"=>$cat_desc)),
+    "page" => array ('page',array("%page_title%" => ltrim(wp_title('',false)), "%page_title_custom%" => $secondary)),
+    "year" => array ('year_archive',array("%year%" => get_the_time('Y'))),
+    "month" => array ('month_archive',array("%month%" => get_the_time('F, Y'))),
+    "day" => array ('day_archive',array("%day%" => get_the_time('F jS, Y'))),
+    "otherdate" => array ('other_date_archive',''),
+    "paged" => array ('paged_modification',array("%page_number%" => $this_page, "%page_total%" => $this_page_total)),
+    "404" => array('404',array("%error_url%" => $full_url)),
 );
 } // end setting array of swaps
 
@@ -222,8 +227,8 @@ global $post;
 if ($this->get_comment_page()) {
    $desc = $this->opt_clean('comment_desc_replacement');
    ($this->opt('comment_desc_replacement_override') && $this->opt('enable_secondary_titles')) ?
-			  $title_for_insertion = $this->get_secondary_title() :
-			  $title_for_insertion = single_post_title('',false);
+              $title_for_insertion = $this->get_secondary_title() :
+              $title_for_insertion = single_post_title('',false);
    $desc = str_replace('%post_title%',$title_for_insertion,$desc);
    $desc = str_replace('%comment_page%',get_query_var('cpage'),$desc);
    } // end handling comment pages
@@ -237,49 +242,50 @@ $desc = '';
 $suffix = '_desc';
 $key = $this->get_type_key();
 if ($this->opt('enable_secondary_desc')) {
-	$default = $this->opt_clean('secondary_desc_override_text');
-	if ($this->opt('secondary_desc_override_all') && !$this->get_comment_page()) {
-		$desc = $default;
-		if (($desc == '') && !($this->opt('secondary_desc_use_blank')))
-			$desc = get_the_excerpt();
-		}
-	elseif ($this->treat_like_post($key)) { // singles, pages, and static front page or posts
-		if ($this->get_comment_page() && $this->opt('paged_comments_descfix'))
-		   $desc = $this->select_desc_comments();
-		else {
-		   $tocheck = $this->id_to_check($key);
-		   $desc = $this->get_meta_clean($tocheck, 'secondary_desc', true);
-		   if (($desc == '') && has_excerpt())
-			   $desc = get_the_excerpt();
-		   if (($desc == '') || ($this->opt('secondary_desc_override_excerpt')))
-			   $desc = $default;
-		   if (($desc == '') && !($this->opt('secondary_desc_use_blank')))
-			   $desc = get_the_excerpt();
-			 } // end handling single posts and pages not comments
-		} // end handling single posts and pages
-	else {
-		 $swap = array(
-					  "%blog_name%" => get_bloginfo('name'),
-					  "%blog_desc%" => get_bloginfo('description'),
-					  );
-		 $descswaps = $this->get_swaps($key);
-		 if ($key != '') {
-			 $desc = $this->opt_clean($descswaps[$key]['0'] . $suffix);
-			 // Special handling for tag archives, so we can use a tag description if one is specified under 2.8+, or fall back to a different description if not
-			 if (($key == 'tag') && ($descswaps[$key]['1']['%tag_desc%'] != '') && $this->opt('tag_desc_override'))
-				  $desc = $this->opt_clean($descswaps[$key]['0'] . $suffix . '_extra');
-			 // end special handling for tag archives
-			 if ($desc == '') $desc = $default; // if blank, use default
-			 if (is_array($descswaps[$key]['1'])) $swap = array_merge($swap,$descswaps[$key]['1']);
-			 }	
-			 else $desc = $default;
-		 $desc = str_replace(array_keys($swap), array_values($swap),$desc);
-		 } // end handling other than single posts and pages and overrides
-	} else { $desc = ''; }// end handling with secondary desc enabled
-$desc = $this->prepout($desc);
+    $default = $this->opt_clean('secondary_desc_override_text');
+    if ($this->opt('secondary_desc_override_all') && !$this->get_comment_page()) {
+        $desc = $default;
+        if (($desc == '') && !($this->opt('secondary_desc_use_blank')))
+            $desc = get_the_excerpt();
+        }
+    elseif ($this->treat_like_post($key)) { // singles, pages, and static front page or posts
+        if ($this->get_comment_page() && $this->opt('paged_comments_descfix'))
+           $desc = $this->select_desc_comments();
+        else {
+           $tocheck = $this->id_to_check($key);
+           $desc = $this->get_meta_clean($tocheck, 'secondary_desc', true);
+           if (($desc == '') && has_excerpt())
+               $desc = get_the_excerpt();
+           if (($desc == '') || ($this->opt('secondary_desc_override_excerpt')))
+               $desc = $default;
+           if (($desc == '') && !($this->opt('secondary_desc_use_blank')))
+               $desc = get_the_excerpt();
+             } // end handling single posts and pages not comments
+        } // end handling single posts and pages
+    else {
+         $swap = array(
+                      "%blog_name%" => get_bloginfo('name'),
+                      "%blog_desc%" => get_bloginfo('description'),
+                      );
+         $descswaps = $this->get_swaps($key);
+         if ($key != '') {
+             $desc = $this->opt_clean($descswaps[$key]['0'] . $suffix);
+             // Special handling for tag archives, so we can use a tag description if one is specified under 2.8+, or fall back to a different description if not
+             if (($key == 'tag') && ($descswaps[$key]['1']['%tag_desc%'] != '') && $this->opt('tag_desc_override'))
+                  $desc = $this->opt_clean($descswaps[$key]['0'] . $suffix . '_extra');
+             // end special handling for tag archives
+             if ($desc == '') $desc = $default; // if blank, use default
+             if (is_array($descswaps[$key]['1'])) $swap = array_merge($swap,$descswaps[$key]['1']);
+             }  
+             else $desc = $default;
+         $desc = str_replace(array_keys($swap), array_values($swap),$desc);
+         } // end handling other than single posts and pages and overrides
+    } else { $desc = ''; }// end handling with secondary desc enabled
+// 20100429: decode and strip before prepout, because WP stores fields like blog desc with hard-coded entities for single quotes, etc., meaning the text can't be wptexturized properly
+$desc = $this->prepout(stripslashes(wp_specialchars_decode($desc, ENT_QUOTES)));
 if ($this->opt('secondary_desc_wrap')) $desc = wpautop($desc); // wrap only if requested
 if ($echo) echo $desc;
-	else return $desc;
+    else return $desc;
 return;
 } // end getting secondary description
 
@@ -287,28 +293,28 @@ function get_legacy_title() { // grab titles stored by old SEO plugins
 global $post;
 $legacy = '';
 if ($this->opt('enable_secondary_titles_legacy')) {
-	$supported = array('_aioseop_title','_headspace_page_title','title','_wpseo_edit_title','_su_title');
-	foreach ($supported as $titlefield) {
-		$legacy = get_post_meta($post->ID, $titlefield, true);
-		if ($legacy != '') break;
-		} // end loop over legacy titles to check
-	if (('' == $legacy) && $this->opt('enable_seott')) { // SEO Title Tag is slightly more involved
-	   $seott = $this->opt_clean('seott_key_name');
-	   if ('' != $seott) $legacy = get_post_meta($post->ID, $seott, true);
-	   } // end handling SEO Title Tag data
-	} // end handling legacy titles
+    $supported = array('_aioseop_title','_headspace_page_title','title','_wpseo_edit_title','_su_title');
+    foreach ($supported as $titlefield) {
+        $legacy = get_post_meta($post->ID, $titlefield, true);
+        if ($legacy != '') break;
+        } // end loop over legacy titles to check
+    if (('' == $legacy) && $this->opt('enable_seott')) { // SEO Title Tag is slightly more involved
+       $seott = $this->opt_clean('seott_key_name');
+       if ('' != $seott) $legacy = get_post_meta($post->ID, $seott, true);
+       } // end handling SEO Title Tag data
+    } // end handling legacy titles
 return $legacy;
 } // end getting legacy titles
 
 function get_secondary_title() { // select the secondary title, if enabled
 global $post;
 if ($this->opt('enable_secondary_titles')) {
-	$tocheck = $this->id_to_check();
-	$secondary = $this->get_meta_clean($tocheck, 'secondary_title', true);
-	if ('' != $secondary) return $this->prepout($secondary);
-	elseif ($this->opt('enable_secondary_titles_legacy') && !$this->opt('legacy_title_invert')) $secondary = $this->get_legacy_title();
-	if ('' != $secondary) return $this->prepout(stripslashes(wp_specialchars_decode($secondary, ENT_QUOTES)));
-	} // end of secondary titles enabled
+    $tocheck = $this->id_to_check();
+    $secondary = $this->get_meta_clean($tocheck, 'secondary_title', true);
+    if ('' != $secondary) return $this->prepout($secondary);
+    elseif ($this->opt('enable_secondary_titles_legacy') && !$this->opt('legacy_title_invert')) $secondary = $this->get_legacy_title();
+    if ('' != $secondary) return $this->prepout(stripslashes(wp_specialchars_decode($secondary, ENT_QUOTES)));
+    } // end of secondary titles enabled
 $secondary = ltrim(wp_title('',false));
 return $secondary;
 } // end getting secondary title
@@ -319,11 +325,11 @@ $title_for_insertion = '';
 if ($this->get_comment_page() && $this->opt('paged_comments_titlefix')) {
    $title = stripslashes($this->opt('comment_title_replacement'));
    if ($this->opt('comment_title_replacement_override') && !$ismain && $this->opt('enable_secondary_titles')) // do not override if main title
-		$title_for_insertion = $this->get_secondary_title();
+        $title_for_insertion = $this->get_secondary_title();
    else {
-		if ($this->opt('legacy_title_invert') && $this->opt('enable_secondary_titles_legacy')) 
-			$title_for_insertion = $this->get_legacy_title();
-		if ('' == $title_for_insertion) $title_for_insertion = single_post_title('',false);
+        if ($this->opt('legacy_title_invert') && $this->opt('enable_secondary_titles_legacy')) 
+            $title_for_insertion = $this->get_legacy_title();
+        if ('' == $title_for_insertion) $title_for_insertion = single_post_title('',false);
    } // end check in case of legacy title inversion
    $title = str_replace('%post_title%',$title_for_insertion,$title);
    $title = str_replace('%comment_page%',get_query_var('cpage'),$title);
@@ -341,7 +347,7 @@ else $title = (($this->opt('main_for_secondary')) || $main) ? $this->get_other_t
    // end handling pages other than singles and pages
 $title = $this->prepout(stripslashes(wp_specialchars_decode($title, ENT_QUOTES)));
 if ($echo) echo $title;
-	else return $title;
+    else return $title;
 return;
 } // end select title
 
@@ -356,21 +362,21 @@ $key = $this->get_type_key();
 $titleswaps = $this->get_swaps($key);
 
 if ($key != '') {
-	$title = $this->opt_clean($titleswaps[$key]['0'] . $suffix);
-	if (is_array($titleswaps[$key]['1'])) $swap = array_merge($swap,$titleswaps[$key]['1']);
-	}	
-	else $title = wp_title('| ',false,'right') . get_bloginfo('name'); // if it was none of these, just get the usual
+    $title = $this->opt_clean($titleswaps[$key]['0'] . $suffix);
+    if (is_array($titleswaps[$key]['1'])) $swap = array_merge($swap,$titleswaps[$key]['1']);
+    }   
+    else $title = wp_title('| ',false,'right') . get_bloginfo('name'); // if it was none of these, just get the usual
 
 if ((($key == 'single') || ($key == 'page')) && ($main && $this->opt('legacy_title_invert') && $this->opt('enable_secondary_titles_legacy'))) { // handle legacy titles as main titles
-	$title = $this->get_legacy_title();
-	} // end handling screwy legacy titles as main titles
+    $title = $this->get_legacy_title();
+    } // end handling screwy legacy titles as main titles
 
 if ($title == '') $title = ltrim(wp_title('',false));
 if (is_paged() || $this->is_multipage()) { // modify with something like a page number, if this is paged?
-	$modifier = $this->opt_clean($titleswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
-	if ($modifier != '') $title = str_replace('%prior_title%',$title,$modifier); 
-	$swap = array_merge($swap,$titleswaps['paged']['1']);
-	} // end handling paged
+    $modifier = $this->opt_clean($titleswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
+    if ($modifier != '') $title = str_replace('%prior_title%',$title,$modifier); 
+    $swap = array_merge($swap,$titleswaps['paged']['1']);
+    } // end handling paged
 $title = str_replace(array_keys($swap), array_values($swap),$title);
 
 return $title;
@@ -379,20 +385,20 @@ return $title;
 
 function paged_comments_dupefix($content) { // remove post content if we're on a paged comment page
 if ($this->get_comment_page() && $this->opt('paged_comments_dupefix')) {
-	global $post;
-	$content = '<p class="commentsactive">' . $this->opt_clean('comment_page_replacement') . '</p>';
-	($this->opt('comment_page_replacement_override') && $this->opt('enable_secondary_titles')) ?
-			   $title_for_insertion = $this->get_secondary_title() :
-			   $title_for_insertion = single_post_title('',false);
-	$post_link = '&#8220;<a href="' . get_permalink() . '">' . $title_for_insertion . '</a>&#8221;';
-	$swaps = array (
-				   "%post_title_linked%" => $post_link,
-				   "%post_title%" => $title_for_insertion,
-				   "%post_permalink%" => get_permalink(),
-				   );
-	$content = str_replace(array_keys($swaps), array_values($swaps), $content);
-	return $this->prepout($content);
-	}
+    global $post;
+    $content = '<p class="commentsactive">' . $this->opt_clean('comment_page_replacement') . '</p>';
+    ($this->opt('comment_page_replacement_override') && $this->opt('enable_secondary_titles')) ?
+               $title_for_insertion = $this->get_secondary_title() :
+               $title_for_insertion = single_post_title('',false);
+    $post_link = '&#8220;<a href="' . get_permalink() . '">' . $title_for_insertion . '</a>&#8221;';
+    $swaps = array (
+                   "%post_title_linked%" => $post_link,
+                   "%post_title%" => $title_for_insertion,
+                   "%post_permalink%" => get_permalink(),
+                   );
+    $content = str_replace(array_keys($swaps), array_values($swaps), $content);
+    return $this->prepout($content);
+    }
 else {return $content;}
 } // end paged comments dupefix
 
@@ -404,12 +410,12 @@ return $curauth->$meta;
 
 function trimmer($totrim='',$length=160,$ellipsis='...') { // trim strings down to size
 if (strlen($totrim) > $length) {
-	$totrim = substr($totrim, 0, $length);
-	$lastdot = strrpos($totrim, ".");
-	$lastspace = strrpos($totrim, " ");
-	$shorter = substr($totrim, 0, ($lastdot > $lastspace? $lastdot : $lastspace)); // truncate at either last dot or last space
-	$shorter = rtrim($shorter, ' .') . $ellipsis; // trim off ending periods or spaces and append ellipsis
-	} // end of snipping when too long
+    $totrim = substr($totrim, 0, $length);
+    $lastdot = strrpos($totrim, ".");
+    $lastspace = strrpos($totrim, " ");
+    $shorter = substr($totrim, 0, ($lastdot > $lastspace? $lastdot : $lastspace)); // truncate at either last dot or last space
+    $shorter = rtrim($shorter, ' .') . $ellipsis; // trim off ending periods or spaces and append ellipsis
+    } // end of snipping when too long
 else { $shorter = $totrim; }
 return $shorter;
 } // end trimmer
@@ -424,13 +430,13 @@ return $desc; // note value hasn't been texurized or escaped
 
 function clean_fancies($content) { // get rid of some (space-wasting) common typographical fanciness
 $replace = array (
-		  "&ldquo;" => '"',
-		  "&rdquo;"=> '"',
-		  "&quot;" => '"',
-		  "&lsquo;" => "'",
-		  "&rsquo;" => "'",
-		  "&mdash;" => "--",
-		   );
+          "&ldquo;" => '"',
+          "&rdquo;"=> '"',
+          "&quot;" => '"',
+          "&lsquo;" => "'",
+          "&rsquo;" => "'",
+          "&mdash;" => "--",
+           );
 return str_replace(array_keys($replace), array_values($replace), $content);
 } // end cleaning out fancies
 
@@ -443,65 +449,65 @@ function head_desc() { // construct the head description
 global $post,$paged;
 if (is_404()) return;
 if ($this->opt('paged_comments_meta_enable') && $this->get_comment_page()) {
-	$description = $this->head_desc_comments();
-	$custom = true;
-	} // end handling comments pages
+    $description = $this->head_desc_comments();
+    $custom = true;
+    } // end handling comments pages
 else
-	{ // all the rest of this occurs only if we don't need a custom comments page meta
-	$key = $this->get_type_key();
-	$default  = get_bloginfo('name') . ': ' . get_bloginfo('description');
-	$custom = $secondary_fallback = false;
-	if ($this->treat_like_post($key)) { // posts, pages, and static front page or posts
-	   if ($this->opt('enable_alt_description')) {
-		   $tocheck = $this->id_to_check($key);
-		   $description = $this->get_meta_clean($tocheck,'alternative_description', true);
-		   if ($description != '') $custom = true;
-		   elseif ($this->opt('use_secondary_for_head')) $description = strip_tags($this->get_meta_clean($tocheck,'secondary_desc', true));
-		   if ($description != '') $custom = $secondary_fallback = true; // flag will tell us if this was secondary description
-		   elseif ($this->opt('enable_descriptions_legacy')) {
-				  $supported = array('_aioseop_description','_headspace_description','description','_wpseo_edit_description','_su_description');
-				  foreach ($supported as $descfield) {
-					  $description = get_post_meta($post->ID, $descfield, true);
-					  if ($description != '') {$custom = true; break;}
-					  } // end loop over legacy descriptions to check
-				  } // end handling legacy descriptions
-		   } // end check for alt desc enabled
-	   if (!$custom) { // no custom description?
-		   $description_longer = $post->post_excerpt;
-		   if ($description_longer == '') $description_longer = $post->post_content;
-		   $description = trim(strip_tags(stripcslashes(str_replace(array("\r\n", "\r", "\n"), " ", $description_longer))));
-		   } // end handling single or page but not custom
-	   } // end handling single or page
-	else
-	   { // if not single or page...
-	   $swap = array(
-					"%blog_name%" => get_bloginfo('name'),
-					"%blog_desc%" => get_bloginfo('description'),
-					);
-	   $metaswaps = $this->get_swaps($key);
-	   $suffix = '_meta_desc';   
-	   if ($key != '') {
-		   $description = $this->opt_clean($metaswaps[$key]['0'] . $suffix);
-		   // Special handling for tag archives, so we can use a tag description if one is specified under 2.8+, or fall back to a different description if not
-		   if (($key == 'tag') && ($metaswaps[$key]['1']['%tag_desc%'] != '') && $this->opt('tag_meta_desc_override'))
-				$description = $this->opt_clean($metaswaps[$key]['0'] . $suffix . '_extra');
-		   // end special handling for tag archives
-		   $custom = true;
-		   if (is_array($metaswaps[$key]['1'])) $swap = array_merge($swap,$metaswaps[$key]['1']);
-		   }	
-		   else $description = $default; // if it was none of these, just get name, desc
-	   if (is_paged()) { // modify with something like a page number, if this is paged?
-		   $modifier = $this->opt_clean($metaswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
-		   if ($modifier != '') $description = str_replace('%prior_meta_desc%',$description,$modifier); 
-		   $swap = array_merge($swap,$metaswaps['paged']['1']);
-		   } // end handling paged
-	   $description = str_replace(array_keys($swap), array_values($swap),$description);
-	   $description = wp_specialchars_decode($description, ENT_QUOTES); // just to make sure we don't send it out encoded twice
-	   $description = strip_tags($this->strip_para($description)); // kill leftover markup
-	   if ($description == '') $description = $default;
-	   } // end handling other than single or page, now do stuff common to both
-	
-	} // end of handling other than comments pages
+    { // all the rest of this occurs only if we don't need a custom comments page meta
+    $key = $this->get_type_key();
+    $default  = get_bloginfo('name') . ': ' . get_bloginfo('description');
+    $custom = $secondary_fallback = false;
+    if ($this->treat_like_post($key)) { // posts, pages, and static front page or posts
+       if ($this->opt('enable_alt_description')) {
+           $tocheck = $this->id_to_check($key);
+           $description = $this->get_meta_clean($tocheck,'alternative_description', true);
+           if ($description != '') $custom = true;
+           elseif ($this->opt('use_secondary_for_head')) $description = strip_tags($this->get_meta_clean($tocheck,'secondary_desc', true));
+           if ($description != '') $custom = $secondary_fallback = true; // flag will tell us if this was secondary description
+           elseif ($this->opt('enable_descriptions_legacy')) {
+                  $supported = array('_aioseop_description','_headspace_description','description','_wpseo_edit_description','_su_description');
+                  foreach ($supported as $descfield) {
+                      $description = get_post_meta($post->ID, $descfield, true);
+                      if ($description != '') {$custom = true; break;}
+                      } // end loop over legacy descriptions to check
+                  } // end handling legacy descriptions
+           } // end check for alt desc enabled
+       if (!$custom) { // no custom description?
+           $description_longer = $post->post_excerpt;
+           if ($description_longer == '') $description_longer = $post->post_content;
+           $description = trim(strip_tags(stripcslashes(str_replace(array("\r\n", "\r", "\n"), " ", $description_longer))));
+           } // end handling single or page but not custom
+       } // end handling single or page
+    else
+       { // if not single or page...
+       $swap = array(
+                    "%blog_name%" => get_bloginfo('name'),
+                    "%blog_desc%" => get_bloginfo('description'),
+                    );
+       $metaswaps = $this->get_swaps($key);
+       $suffix = '_meta_desc';   
+       if ($key != '') {
+           $description = $this->opt_clean($metaswaps[$key]['0'] . $suffix);
+           // Special handling for tag archives, so we can use a tag description if one is specified under 2.8+, or fall back to a different description if not
+           if (($key == 'tag') && ($metaswaps[$key]['1']['%tag_desc%'] != '') && $this->opt('tag_meta_desc_override'))
+                $description = $this->opt_clean($metaswaps[$key]['0'] . $suffix . '_extra');
+           // end special handling for tag archives
+           $custom = true;
+           if (is_array($metaswaps[$key]['1'])) $swap = array_merge($swap,$metaswaps[$key]['1']);
+           }    
+           else $description = $default; // if it was none of these, just get name, desc
+       if (is_paged()) { // modify with something like a page number, if this is paged?
+           $modifier = $this->opt_clean($metaswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
+           if ($modifier != '') $description = str_replace('%prior_meta_desc%',$description,$modifier); 
+           $swap = array_merge($swap,$metaswaps['paged']['1']);
+           } // end handling paged
+       $description = str_replace(array_keys($swap), array_values($swap),$description);
+       $description = wp_specialchars_decode($description, ENT_QUOTES); // just to make sure we don't send it out encoded twice
+       $description = strip_tags($this->strip_para($description)); // kill leftover markup
+       if ($description == '') $description = $default;
+       } // end handling other than single or page, now do stuff common to both
+    
+    } // end of handling other than comments pages
 
 $description = $this->clean_shortcodes($description); // get rid of shortcodes
 $description = $this->clean_fancies($description); // get rid of common typographical fanciness
@@ -511,7 +517,7 @@ $description = preg_replace('/  +/',' ',$description); // get rid of extraneous 
 $length = ('0' == $this->opt('desc_length')) ? 160 : $this->opt('desc_length');
 
 if (((!$this->opt('desc_length_override')) && $custom) || !$custom || $secondary_fallback)
-	 $description = $this->trimmer($description,$length); // only trim if not custom, or custom but not overriding
+     $description = $this->trimmer($description,$length); // only trim if not custom, or custom but not overriding
 
 $description = htmlspecialchars($description);
 $output = "<meta name=\"description\" content=\"{$description}\" />\n";
@@ -538,54 +544,54 @@ if (is_404()) return;
 if ((!$this->opt('enable_keywords'))) return;
 $defaults = $this->opt_clean('default_keywords');
 if ($defaults == '')
-	$defaults = get_bloginfo('name');
+    $defaults = get_bloginfo('name');
 // if (PHP_VERSION >= 5)
-// 	$temp_query = clone $wp_query; // note clone method is PHP5 only
+//  $temp_query = clone $wp_query; // note clone method is PHP5 only
 // else $temp_query = $wp_query;
 $taglist = '';
 if (is_single() || is_page() ) : if ( have_posts() ) : while ( have_posts() ) : the_post(); // annoyingly, run a loop here to get what we need; this is why we don't bother with extracting keywords for a static posts page
 if ($this->opt('enable_keywords_custom'))
-	$taglist = $this->get_meta_clean($post->ID,'keywords', true);
+    $taglist = $this->get_meta_clean($post->ID,'keywords', true);
 if ($this->opt('enable_keywords_tags'))
-	$posttags = get_the_tags();
+    $posttags = get_the_tags();
 if ($posttags) {
-	if ($taglist != '') $taglist .= ', ';
-	$showtags = array_slice($posttags,0,$this->opt('keyword_tags_limit')); // just keep the first specified number of tags
-	foreach ($showtags as $tag) {
-	   $taglist .= wp_specialchars_decode($tag->name,ENT_QUOTES) . ', ';
-	   }
-	$taglist = rtrim($taglist,', ');
+    if ($taglist != '') $taglist .= ', ';
+    $showtags = array_slice($posttags,0,$this->opt('keyword_tags_limit')); // just keep the first specified number of tags
+    foreach ($showtags as $tag) {
+       $taglist .= wp_specialchars_decode($tag->name,ENT_QUOTES) . ', ';
+       }
+    $taglist = rtrim($taglist,', ');
 } // end check for whether we have tags
 
 if ($this->opt('enable_keywords_legacy')) {
 // add in any custom field keywords
 $supported = array('_aioseop_keywords','_headspace_keywords','_headspace_metakey', '_wpseo_edit_keywords','_su_keywords','autometa','keyword','keywords');
 foreach ($supported as $fieldname) {
-	$extras = get_post_meta($post->ID, $fieldname, true);
-	if ($extras != '') $taglist .= ', ' . $this->legacy_keyword_cleanup($extras);
-	} // end loop for custom field keywords
+    $extras = get_post_meta($post->ID, $fieldname, true);
+    if ($extras != '') $taglist .= ', ' . $this->legacy_keyword_cleanup($extras);
+    } // end loop for custom field keywords
 } // end check for supporting legacy keywords
 
 if ($taglist == '') $taglist = $defaults; // if nothing else, use defaults
 if ($this->opt('enable_keywords_title')) $taglist = wp_specialchars_decode(strip_tags($post->post_title)) . ', ' . $taglist;
 
 endwhile; endif; elseif(is_archive()):
-	$taglist = $defaults;
-	endif;
+    $taglist = $defaults;
+    endif;
 if (is_home()) {
-	$homewords = $this->opt_clean('custom_home_keywords');
-	$taglist = ('' == $homewords) ? $defaults : $homewords . ', ' . get_bloginfo('name');
+    $homewords = $this->opt_clean('custom_home_keywords');
+    $taglist = ('' == $homewords) ? $defaults : $homewords . ', ' . get_bloginfo('name');
 } // end handling home
 elseif(is_author())
-	$taglist = $this->get_author() . ', ' . $taglist;
+    $taglist = $this->get_author() . ', ' . $taglist;
 elseif(is_tag())
-	$taglist = single_tag_title('',false) . ', ' . $taglist;
+    $taglist = single_tag_title('',false) . ', ' . $taglist;
 elseif(is_category())
-	$taglist = stripslashes(wp_specialchars_decode(single_cat_title('',false),ENT_QUOTES)) . ', ' . $taglist;
+    $taglist = stripslashes(wp_specialchars_decode(single_cat_title('',false),ENT_QUOTES)) . ', ' . $taglist;
 if (trim($taglist,', ') == '') $taglist = $defaults;
 
 // if (PHP_VERSION >= 5)
-// 	$wp_query = clone $temp_query; // restore the original query so further loops are not messed up
+//  $wp_query = clone $temp_query; // restore the original query so further loops are not messed up
 // else $wp_query = $temp_query;
 
 wp_reset_query(); // whew, thank goodness that's over
@@ -607,9 +613,9 @@ foreach ($tocheck as $check) { // have we been told to exclude certain types of 
    if ($fx() && $this->opt('index_' . $check . '_exclude')) $exclude = true;
    } // end loop over types to check
 if ($exclude) {
-	$index = 'noindex';
-	if ($this->opt('index_nofollow')) $index .= ',nofollow';
-	} // end case for excluding
+    $index = 'noindex';
+    if ($this->opt('index_nofollow')) $index .= ',nofollow';
+    } // end case for excluding
 else $index = 'index,follow';
 if ($this->opt('index_noodp')) $index .= ',noodp,noydir';
 $output = "<meta name=\"robots\" content=\"{$index}\" />\n";
@@ -639,31 +645,31 @@ if (is_admin()) { // only load the admin stuff if we have to
    include ('ghpseo-setup-functions.php');
    include('ghpseo-writing.php');
    function ghpseo_setup_setngo() { // set up and instantiate admin class
-	  $prefix = 'ghpseo';
-	  $location_full = __FILE__;
-	  $location_local = plugin_basename(__FILE__);
-	  $args = compact('prefix','location_full','location_local');
-	  $options_page_details = array ('Greg&#8217;s HP SEO Options','High Performance SEO','gregs-high-performance-seo/ghpseo-options.php');
-	  new ghpseoSetupHandler($args,$options_page_details);
-	  } // end setup function
+      $prefix = 'ghpseo';
+      $location_full = __FILE__;
+      $location_local = plugin_basename(__FILE__);
+      $args = compact('prefix','location_full','location_local');
+      $options_page_details = array ('Greg&#8217;s HP SEO Options','High Performance SEO','gregs-high-performance-seo/ghpseo-options.php');
+      new ghpseoSetupHandler($args,$options_page_details);
+      } // end setup function
    ghpseo_setup_setngo();
    } // end admin-only stuff
 else
    { // code for regular page views: instantiate class and provide interface function
    $ghpseo = new gregsHighPerformanceSEO('ghpseo');
    function ghpseo_output($type='main',$echo=true) {
-	  global $ghpseo;
-	  switch ($type) {
-			  case "main": $result = $ghpseo->select_title(true,false); break;
-			  case "main_title": $result = $ghpseo->select_title(true,false); break;
-			  case "secondary_title": $result = $ghpseo->select_title(false,false); break;
-			  case "description": $result = $ghpseo->select_desc(false); break;
-			  }
-	  if ($ghpseo->opt('enable_modifications')) $result = apply_filters('ghpseo_output', $result, $type);
-	  if (!$echo) return $result;
-	  else echo $result;
-	  return;
-	  }
+      global $ghpseo;
+      switch ($type) {
+              case "main": $result = $ghpseo->select_title(true,false); break;
+              case "main_title": $result = $ghpseo->select_title(true,false); break;
+              case "secondary_title": $result = $ghpseo->select_title(false,false); break;
+              case "description": $result = $ghpseo->select_desc(false); break;
+              }
+      if ($ghpseo->opt('enable_modifications')) $result = apply_filters('ghpseo_output', $result, $type);
+      if (!$echo) return $result;
+      else echo $result;
+      return;
+      }
    // last and least, if we're running with output buffering, set it up now:
    if ($ghpseo->opt('obnoxious_mode')) include ('ghpseo-sledgehammer-mode.php');
    } // end non-admin stuff
