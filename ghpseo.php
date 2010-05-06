@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.3.7
+Version: 1.3.8
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -606,6 +606,8 @@ return;
 function robots() { // construct head robots
 global $post;
 if (is_404()) return;
+// 20100506: check again to see whether user wants us to add robots just in case this function is called directly via Sledgehammer Mode
+if (!$this->opt('index_enable')) return;
 $tocheck = array ('author','category','search','tag','date', 'attachment');
 $exclude = false;
 foreach ($tocheck as $check) { // have we been told to exclude certain types of archives?
