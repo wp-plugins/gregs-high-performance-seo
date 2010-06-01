@@ -3,24 +3,24 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 3.0-alpha
-Stable tag: 1.3.8
+Tested up to: 3.0-RC1
+Stable tag: 1.4
 
-Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
+Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
 
 == Description ==
 
 = New in This Version =
 
-* When user disables robots meta tag modifications, that preference will now be respected even when using Sledgehammer Mode
+* Major reduction in database footprint in preparation for WordPress 3.0
 
-For more details on what's new in the latest main release, version 1.3, please see the update announcement: [Two WordPress Plugins Updated for 2.9](http://counsellingresource.com/features/2009/12/02/wordpress-plugins-updated/)
+For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://counsellingresource.com/features/2010/06/01/wordpress-plugins-performance-boost/)
 
 = Introduction =
 
 WordPress SEO plugins have been done before, but never like this.
 
-Offering direct control over more than 100 separate on-page characteristics important for SEO, while loading only around 600 lines of code for each ordinary page view and playing nicely with other plugins, this plugin has been designed from the ground up for performance and compatibility. (By contrast, the most popular SEO plugin configures only around 20 characteristics, demands more than 2000 lines of code for each page view, and employs crude output buffer hacks which can sap performance and trample on many other plugins.)
+Offering direct control over more than 100 separate on-page characteristics important for SEO, while loading fewer than 700 lines of code for each ordinary page view and playing nicely with other plugins, this plugin has been designed from the ground up for performance and compatibility. (By contrast, the most popular SEO plugin configures only around 20 characteristics, demands more than 2000 lines of code for each page view, and employs crude output buffer hacks which can sap performance and trample on many other plugins.)
 
 This plugin is intended for anyone who wants to help search engines find their material: it's not just for professional marketers, it's not just for those who make their living via the web, and it's certainly not only for developers or full-time settings tweakers.
 
@@ -118,10 +118,13 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.3.8, 6 May 2010 =
-* When user disables robots meta tag modifications, that preference will now be respected even when using Sledgehammer Mode
+= 1.4, 1 June 2010 =
+* Major reduction in database footprint in preparation for WordPress 3.0
 
 == Changelog ==
+
+= 1.4, 1 June 2010 =
+* Major reduction in database footprint in preparation for WordPress 3.0
 
 = 1.3.8, 6 May 2010 =
 * When user disables robots meta tag modifications, that preference will now be respected even when using Sledgehammer Mode
