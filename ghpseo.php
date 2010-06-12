@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.4
+Version: 1.4.1
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -547,45 +547,41 @@ class gregsHighPerformanceSEO {
 	} // end legacy keyword cleanup
 
 	function head_keywords() { // construct head keyword list
-		global $wp_query,$post;
+		global $post;
 		if (is_404()) return;
 		if ((!$this->opt('enable_keywords'))) return;
 		$defaults = $this->opt_clean('default_keywords');
 		if ($defaults == '')
 			$defaults = get_bloginfo('name');
-		//  if (PHP_VERSION >= 5)
-		//  $temp_query = clone $wp_query; // note clone method is PHP5 only
-		//  else $temp_query = $wp_query;
 		$taglist = '';
-		if (is_single() || is_page() ) : if ( have_posts() ) : while ( have_posts() ) : the_post(); // annoyingly, run a loop here to get what we need; this is why we don't bother with extracting keywords for a static posts page
-		if ($this->opt('enable_keywords_custom'))
-			$taglist = $this->get_meta_clean($post->ID,'keywords', true);
-		if ($this->opt('enable_keywords_tags'))
-			$posttags = get_the_tags();
-		if ($posttags) {
-			if ($taglist != '') $taglist .= ', ';
-			$showtags = array_slice($posttags,0,$this->opt('keyword_tags_limit')); // just keep the first specified number of tags
-			foreach ($showtags as $tag) {
-				$taglist .= wp_specialchars_decode($tag->name,ENT_QUOTES) . ', ';
-			}
-			$taglist = rtrim($taglist,', ');
-		} // end check for whether we have tags
-		
-		if ($this->opt('enable_keywords_legacy')) {
-			// add in any custom field keywords
-			$supported = array('_aioseop_keywords','_headspace_keywords','_headspace_metakey', '_wpseo_edit_keywords','_su_keywords','autometa','keyword','keywords');
-			foreach ($supported as $fieldname) {
-				$extras = get_post_meta($post->ID, $fieldname, true);
-				if ($extras != '') $taglist .= ', ' . $this->legacy_keyword_cleanup($extras);
-			} // end loop for custom field keywords
-		} // end check for supporting legacy keywords
-		
-		if ($taglist == '') $taglist = $defaults; // if nothing else, use defaults
-		if ($this->opt('enable_keywords_title')) $taglist = wp_specialchars_decode(strip_tags($post->post_title)) . ', ' . $taglist;
-		
-		endwhile; endif; elseif(is_archive()):
-			$taglist = $defaults;
-			endif;
+		if (is_singular()) { // thanks to Aaron Harun for noticing we no longer needed a loop here
+			if ($this->opt('enable_keywords_custom'))
+				$taglist = $this->get_meta_clean($post->ID,'keywords', true);
+			if ($this->opt('enable_keywords_tags'))
+				$posttags = get_the_tags($post->ID);
+			if ($posttags) {
+				if ($taglist != '') $taglist .= ', ';
+				$showtags = array_slice($posttags,0,$this->opt('keyword_tags_limit')); // just keep the first specified number of tags
+				foreach ($showtags as $tag) {
+					$taglist .= wp_specialchars_decode($tag->name,ENT_QUOTES) . ', ';
+				}
+				$taglist = rtrim($taglist,', ');
+			} // end check for whether we have tags
+			
+			if ($this->opt('enable_keywords_legacy')) {
+				// add in any custom field keywords
+				$supported = array('_aioseop_keywords','_headspace_keywords','_headspace_metakey', '_wpseo_edit_keywords','_su_keywords','autometa','keyword','keywords');
+				foreach ($supported as $fieldname) {
+					$extras = get_post_meta($post->ID, $fieldname, true);
+					if ($extras != '') $taglist .= ', ' . $this->legacy_keyword_cleanup($extras);
+				} // end loop for custom field keywords
+			} // end check for supporting legacy keywords
+			
+			if ($taglist == '') $taglist = $defaults; // if nothing else, use defaults
+			if ($this->opt('enable_keywords_title')) $taglist = wp_specialchars_decode(strip_tags($post->post_title)) . ', ' . $taglist;
+			
+		} // end handling single or page
+		elseif (is_archive()) $taglist = $defaults;
 		if (is_home()) {
 			$homewords = $this->opt_clean('custom_home_keywords');
 			$taglist = ('' == $homewords) ? $defaults : $homewords . ', ' . get_bloginfo('name');
@@ -597,12 +593,6 @@ class gregsHighPerformanceSEO {
 		elseif(is_category())
 			$taglist = stripslashes(wp_specialchars_decode(single_cat_title('',false),ENT_QUOTES)) . ', ' . $taglist;
 		if (trim($taglist,', ') == '') $taglist = $defaults;
-		
-		// if (PHP_VERSION >= 5)
-		//  $wp_query = clone $temp_query; // restore the original query so further loops are not messed up
-		// else $wp_query = $temp_query;
-		
-		wp_reset_query(); // whew, thank goodness that's over
 		
 		$taglist = htmlspecialchars(trim($this->trimmer($taglist,$this->opt('tags_length'),''), ', '));
 		$output = "<meta name=\"keywords\" content=\"{$taglist}\" />\n";

@@ -273,18 +273,20 @@ class ghpseoOptionsHandler {
 		
 			$header = wptexturize(__($settings['header'][$stepper], $domain));
 			$preface = wptexturize(__($settings['preface'][$stepper], $domain));
+
+			$properties = explode(',', $settings['type'][$stepper]);
 			
 			if ($header != '')
 				$output .= "<!--secstart--><h3>{$header}</h3>\n";
 			if (($preface != '') && $full)
 				$output .= "<p>$preface</p>\n";
+			else if (($preface != '') && ($properties[0] == 'extra_desc')) // allow description to go through untouched for 'extra_desc' type
+				$output .= $preface;
 			if (($header != '') || ($preface != ''))
 				$output .= '<table class="form-table ' . $this->plugin_prefix . 'table">';
 			
 			$output .=  '<tr valign="top"><th scope="row">' . $settings['label'][$stepper] . "</th>\n<td>\n";
-			
-			$properties = explode(',', $settings['type'][$stepper]);
-			
+						
 			// get current setting value and adjusted setting name
 			$setting_value = $this->get_setting_value($settings['setting'][$stepper]);
 			$setting_name = $this->adjust_setting_name($settings['setting'][$stepper]);
