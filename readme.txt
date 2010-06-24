@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 3.0
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 
 Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,7 +12,7 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Workaround for rare problem where WordPress interferes with a newly activated plugin's ability to add options when using multisite/network mode
+* Better workaround for WordPress 3.0's problems initialising plugins properly under multisite
 
 For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://counsellingresource.com/features/2010/06/01/wordpress-plugins-performance-boost/)
 
@@ -118,10 +118,13 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.4.2, 24 June 2010 =
-* Workaround for rare problem where WordPress interferes with a newly activated plugin's ability to add options when using multisite/network mode
+= 1.4.3, 24 June 2010 =
+* Better workaround for WordPress 3.0's problems initialising plugins properly under multisite
 
 == Changelog ==
+
+= 1.4.3, 24 June 2010 =
+* Better workaround for WordPress 3.0's problems initialising plugins properly under multisite
 
 = 1.4.2, 24 June 2010 =
 * Workaround for rare problem where WordPress interferes with a newly activated plugin's ability to add options when using multisite/network mode
