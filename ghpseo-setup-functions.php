@@ -67,7 +67,6 @@ class ghpseoSetupHandler {
 				array("restrict_access", "1", 'intval'),
 				array("enable_modifications", "0", 'intval'),
 				array("obnoxious_mode", "0", 'intval'),
-				array("dashboard", "1", 'intval'),
 				array("title_case", "1", 'intval'),
 				array("title_case_exceptions", "a an and by in of the to with", 'wp_filter_nohtml_kses'),
 				),
