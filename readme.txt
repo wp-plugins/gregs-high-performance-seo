@@ -3,8 +3,8 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 3.1-RC2
-Stable tag: 1.4.6
+Tested up to: 3.1-RC3
+Stable tag: 1.4.7
 
 Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,8 +12,8 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Minor code cleanup
-* Testing with WP 3.1 Release Candidate 2
+* Enhanced handling of canonical URLs to better deal with WordPress's inability to detect paging past the end of a multi-page post
+* Testing with WP 3.1 Release Candidate 3
 
 For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://counsellingresource.com/features/2010/06/01/wordpress-plugins-performance-boost/)
 
@@ -119,11 +119,15 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.4.6, 20 January 2011 =
-* Minor code cleanup
-* Testing with WP 3.1 Release Candidate 2
+= 1.4.7, 24 January 2011 =
+* Enhanced handling of canonical URLs to better deal with WordPress's inability to detect paging past the end of a multi-page post
+* Testing with WP 3.1 Release Candidate 3
 
 == Changelog ==
+
+= 1.4.7, 24 January 2011 =
+* Enhanced handling of canonical URLs to better deal with WordPress's inability to detect paging past the end of a multi-page post
+* Testing with WP 3.1 Release Candidate 3
 
 = 1.4.6, 20 January 2011 =
 * Minor code cleanup

@@ -3,12 +3,12 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.4.6
+Version: 1.4.7
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
 
-/*  Copyright (c) 2009-10 Greg Mulhauser
+/*  Copyright (c) 2009-11 Greg Mulhauser
 
     This WordPress plugin is released under the GPL license
     http://www.opensource.org/licenses/gpl-license.php
@@ -625,14 +625,34 @@ class gregsHighPerformanceSEO {
 		return;
 	} // end robots
 
+	// Adapted from WP's private _wp_link_page(): provides URL for page $i of multi-page posts
+	function get_current_paged_link($i = 1) {
+		global $post, $wp_rewrite;
+		$total = $this->this_page_total();
+		if ((1 == $i) || (1 == $total)) {
+			$url = get_permalink();
+		}
+		else {
+			if ($i > $total) $i = $total;
+			if ( '' == get_option('permalink_structure') || in_array($post->post_status, array('draft', 'pending')) )
+				$url = add_query_arg( 'page', $i, get_permalink() );
+			elseif ( 'page' == get_option('show_on_front') && get_option('page_on_front') == $post->ID )
+				$url = trailingslashit(get_permalink()) . user_trailingslashit("$wp_rewrite->pagination_base/" . $i, 'single_paged');
+			else
+				$url = trailingslashit(get_permalink()) . user_trailingslashit($i, 'single_paged');
+		}
+		return $url;
+	}
+	
 	function canonical() { // handle canonical URLs
 		global $post;
 		if (is_404()) return;
 		if (!is_singular()) return;
 		if ($this->get_comment_page()) return;
-		//$permalink = get_permalink();
-		$permalink = ($this->opt('enable_modifications')) ? apply_filters('ghpseo_canonical_url',get_permalink()) : get_permalink();
-		$output = ($this->opt('canonical_enable')) ? "<link rel=\"canonical\" href=\"{$permalink}\" />\n" : '';
+		if (!$this->opt('canonical_enable')) return;
+		$link = $this->get_current_paged_link($this->this_page()); // handles permalink + paged links
+		if ($this->opt('enable_modifications')) $link = apply_filters('ghpseo_canonical_url',$link);
+		$output = "<link rel=\"canonical\" href=\"{$link}\" />\n";
 		if ($this->opt('obnoxious_mode')) return $output;
 		else echo $output;
 		return;
