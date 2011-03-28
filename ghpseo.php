@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.4.8
+Version: 1.4.9
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -467,7 +467,7 @@ class gregsHighPerformanceSEO {
 		else { // all the rest of this occurs only if we don't need a custom comments page meta
 			$key = $this->get_type_key();
 			$default  = get_bloginfo('name') . ': ' . get_bloginfo('description');
-			$custom = $secondary_fallback = false;
+			$custom = $mp = $secondary_fallback = false;
 			if ($this->treat_like_post($key)) { // posts, pages, and static front page or posts
 				if ($this->opt('enable_alt_description')) {
 					$tocheck = $this->id_to_check($key);
@@ -488,6 +488,7 @@ class gregsHighPerformanceSEO {
 					if ($description_longer == '') $description_longer = $post->post_content;
 					$description = trim(strip_tags(stripcslashes(str_replace(array("\r\n", "\r", "\n"), " ", $description_longer))));
 				} // end handling single or page but not custom
+				if ($this->is_multipage()) $mp = true; // and tweak for multi-page singles
 			} // end handling single or page
 			else { // if not single or page...
 				$swap = array(
@@ -506,16 +507,20 @@ class gregsHighPerformanceSEO {
 					if (is_array($metaswaps[$key]['1'])) $swap = array_merge($swap,$metaswaps[$key]['1']);
 				}    
 				else $description = $default; // if it was none of these, just get name, desc
-				if (is_paged()) { // modify with something like a page number, if this is paged?
-					$modifier = $this->opt_clean($metaswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
-					if ($modifier != '') $description = str_replace('%prior_meta_desc%',$description,$modifier); 
-					$swap = array_merge($swap,$metaswaps['paged']['1']);
-				} // end handling paged
+				if (is_paged())$mp = true; // modify with something like a page number, if this is paged
 				$description = str_replace(array_keys($swap), array_values($swap),$description);
 				$description = wp_specialchars_decode($description, ENT_QUOTES); // just to make sure we don't send it out encoded twice
 				$description = strip_tags($this->strip_para($description)); // kill leftover markup
 				if ($description == '') $description = $default;
 			} // end handling other than single or page, now do stuff common to both
+			if ($mp) { // multi-page mods, same for singular and others
+				$suffix = '_meta_desc';
+				$metaswaps = $this->get_swaps('paged');
+				$modifier = $this->opt_clean($metaswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
+				if ($modifier != '') $description = str_replace('%prior_meta_desc%',$description,$modifier);
+				$swap = $metaswaps['paged']['1'];
+				$description = str_replace(array_keys($swap), array_values($swap),$description);
+			}
 		} // end of handling other than comments pages
 		
 		$description = $this->clean_shortcodes($description); // get rid of shortcodes
