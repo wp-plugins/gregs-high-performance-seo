@@ -3,8 +3,8 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 3.1
-Stable tag: 1.4.9
+Tested up to: 3.1.1
+Stable tag: 1.4.9.1
 
 Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,7 +12,7 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Bugfix for head description modifications on multi-page single posts
+* Indexing exclusions for archives can now be set for a specified depth (e.g., beginning setting `noindex` for tag archives only after the first three pages)
 
 For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://counsellingresource.com/features/2010/06/01/wordpress-plugins-performance-boost/)
 
@@ -118,10 +118,13 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.4.9, 28 March 2011 =
-* Bugfix for head description modifications on multi-page single posts
+= 1.4.9.1, 23 April 2011 =
+* Indexing exclusions for archives can now be set for a specified depth (e.g., beginning setting `noindex` for tag archives only after the first three pages)
 
 == Changelog ==
+
+= 1.4.9.1, 23 April 2011 =
+* Indexing exclusions for archives can now be set for a specified depth (e.g., beginning setting `noindex` for tag archives only after the first three pages)
 
 = 1.4.9, 28 March 2011 =
 * Bugfix for head description modifications on multi-page single posts

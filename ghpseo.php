@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.4.9
+Version: 1.4.9.1
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -181,7 +181,7 @@ class gregsHighPerformanceSEO {
 		return $multipage;
 	} // end check for multipage
 
-	function this_page() { // return current page
+	function this_page() { // return current page number
 		global $wp_query,$paged;
 		if ($paged > 1) return $paged;
 		$page = get_query_var('page');
@@ -607,6 +607,14 @@ class gregsHighPerformanceSEO {
 		return;
 	} // end head keywords
 
+	// check whether the passed type should be excluded from indexing at this depth
+	function exclude_by_depth($check = 'date') {
+		$depth_limit = intval($this->opt("depth_{$check}_exclude")); // depth limit specified?
+		if ($depth_limit < 1) return false;
+		if ($this->this_page() > $depth_limit) return true;
+		else return false;
+	}
+	
 	function robots() { // construct head robots
 		global $post;
 		if (is_404()) return;
@@ -614,9 +622,9 @@ class gregsHighPerformanceSEO {
 		if (!$this->opt('index_enable')) return;
 		$tocheck = array ('author','category','search','tag','date', 'attachment');
 		$exclude = false;
-		foreach ($tocheck as $check) { // have we been told to exclude certain types of archives?
+		foreach ($tocheck as $check) { // have we been told to exclude certain types?
 			$fx = 'is_' . $check;
-			if ($fx() && $this->opt('index_' . $check . '_exclude')) $exclude = true;
+			if ($fx() && ($this->opt("index_{$check}_exclude") || $this->exclude_by_depth($check)) ) $exclude = true;
 		} // end loop over types to check
 		if ($exclude) {
 			$index = 'noindex';
