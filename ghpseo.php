@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.4.9.1
+Version: 1.4.9.2
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -632,6 +632,7 @@ class gregsHighPerformanceSEO {
 		} // end case for excluding
 		else $index = 'index,follow';
 		if ($this->opt('index_noodp')) $index .= ',noodp,noydir';
+		if (is_ssl() && $this->opt('index_no_ssl')) $index = str_replace(array('index','follow'), array('noindex','nofollow'), $index);
 		$output = "<meta name=\"robots\" content=\"{$index}\" />\n";
 		if ($this->opt('obnoxious_mode')) return $output;
 		else echo $output;
@@ -664,6 +665,7 @@ class gregsHighPerformanceSEO {
 		if ($this->get_comment_page()) return;
 		if (!$this->opt('canonical_enable')) return;
 		$link = $this->get_current_paged_link($this->this_page()); // handles permalink + paged links
+		if (is_ssl() && $this->opt('canonical_no_ssl')) $link = str_replace('https://', 'http://', $link);
 		if ($this->opt('enable_modifications')) $link = apply_filters('ghpseo_canonical_url',$link);
 		$output = "<link rel=\"canonical\" href=\"{$link}\" />\n";
 		if ($this->opt('obnoxious_mode')) return $output;
