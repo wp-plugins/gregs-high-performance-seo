@@ -123,6 +123,9 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Changelog ==
 
+= 1.4.9.3, 3 October 2011 =
+* Minor code cleanups
+
 = 1.4.9.2, 12 May 2011 =
 * Optionally, force canonical URL information always to refer to non-SSL
 * Optionally, set SSL content to noindex
