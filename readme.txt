@@ -3,8 +3,8 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 3.0-RC1
-Stable tag: 1.4.1
+Tested up to: 3.2.1
+Stable tag: 1.4.9.3
 
 Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,7 +12,7 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* More efficient code for handling keywords -- thanks to Aaron for the suggestion
+* Minor code cleanups
 
 For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://counsellingresource.com/features/2010/06/01/wordpress-plugins-performance-boost/)
 
@@ -118,10 +118,46 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.4.1, 12 June 2010 =
-* More efficient code for handling keywords -- thanks to Aaron for the suggestion
+= 1.4.9.3, 3 October 2011 =
+* Minor code cleanups
 
 == Changelog ==
+
+= 1.4.9.2, 12 May 2011 =
+* Optionally, force canonical URL information always to refer to non-SSL
+* Optionally, set SSL content to noindex
+
+= 1.4.9.1, 23 April 2011 =
+* Indexing exclusions for archives can now be set for a specified depth (e.g., beginning setting `noindex` for tag archives only after the first three pages)
+
+= 1.4.9, 28 March 2011 =
+* Bugfix for head description modifications on multi-page single posts
+
+= 1.4.8, 18 February 2011 =
+* Enhanced handling of head description
+* Testing with WP 3.1 Release Candidate 4
+
+= 1.4.7, 24 January 2011 =
+* Enhanced handling of canonical URLs to better deal with WordPress's inability to detect paging past the end of a multi-page post
+* Testing with WP 3.1 Release Candidate 3
+
+= 1.4.6, 20 January 2011 =
+* Minor code cleanup
+* Testing with WP 3.1 Release Candidate 2
+
+= 1.4.5, 30 December 2010 =
+* Further testing with 3.1 Release Candidate 1
+* Minor code cleanup
+* Removed SEO additions for Dashboard QuickPress
+
+= 1.4.4, 18 December 2010 =
+* Minor code cleanup and speedup
+
+= 1.4.3, 24 June 2010 =
+* Better workaround for WordPress 3.0's problems initialising plugins properly under multisite
+
+= 1.4.2, 24 June 2010 =
+* Workaround for rare problem where WordPress interferes with a newly activated plugin's ability to add options when using multisite/network mode
 
 = 1.4.1, 12 June 2010 =
 * More efficient code for handling keywords -- thanks to Aaron for the suggestion
