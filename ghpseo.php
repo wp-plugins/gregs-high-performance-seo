@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.4.9.2
+Version: 1.4.9.3
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -416,7 +416,7 @@ class gregsHighPerformanceSEO {
 	function get_author($meta = 'display_name') { // simple author meta grabber, just for use on author archives
 		global $wp_query;
 		if (!is_author()) return '';
-		$curauth = $wp_query->get_queried_object();
+		$curauth = get_userdata(get_query_var('author'));
 		return $curauth->$meta;
 	} // end get author
 
