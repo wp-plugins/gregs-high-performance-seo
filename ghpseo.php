@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.4.9.3
+Version: 1.4.9.4
 Author: Greg Mulhauser
 Author URI: http://counsellingresource.com/
 */
@@ -463,6 +463,7 @@ class gregsHighPerformanceSEO {
 		if ($this->opt('paged_comments_meta_enable') && $this->get_comment_page()) {
 			$description = $this->head_desc_comments();
 			$custom = true;
+			$secondary_fallback = false;
 		} // end handling comments pages
 		else { // all the rest of this occurs only if we don't need a custom comments page meta
 			$key = $this->get_type_key();
