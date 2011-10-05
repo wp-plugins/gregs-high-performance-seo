@@ -1,4 +1,4 @@
 <script type="text/javascript">
 var psHost = (("https:" == document.location.protocol) ? "https://" : "http://");
-document.write(unescape("%3Cscript src='" + psHost + "pluginsponsors.com/direct/spsn/display.php?client=ghpseo&spot=pagedcomments' type='text/javascript'%3E%3C/script%3E"));
+document.write(unescape("%3Cscript src='" + psHost + "pluginsponsors.com/direct/spsn/display.php?client=gregs-high-performance-seo&spot=pagedcomments' type='text/javascript'%3E%3C/script%3E"));
 </script>

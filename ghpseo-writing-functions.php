@@ -29,7 +29,6 @@ class ghpseoWritingAdditions { // insert our various additions to the writing pa
 	var $restricted;           // restrict access to the writing additions?
 	var $post_set;             // additions for post editing
 	var $page_set;             // additions for page editing
-	var $dashboard_set;        // additions for dashboard
 	var $docounter;            // add a character counter to this box
 
 	function ghpseoWritingAdditions($args) {
@@ -45,14 +44,10 @@ class ghpseoWritingAdditions { // insert our various additions to the writing pa
 		$this->restricted = $restricted;
 		$this->post_set = $post_set;
 		$this->page_set = $page_set;
-		$this->dashboard_set = $dashboard_set;
 		$this->docounter = $docounter;
 		// add actions depending on where user has told us to place additions
-		if ($dashboard_set)
-			add_action('wp_dashboard_setup', array(&$this,'add_dashboard_widgets'));
-		if ($post_set || $page_set)
+		if ($post_set || $page_set) {
 			add_action('admin_menu', array(&$this, 'add_boxes'));
-		if ($post_set || $page_set || $dashboard_set) {
 			add_action('admin_head', array(&$this, 'add_writing_css'));
 			add_action('save_post', array(&$this, 'save_postdata'));
 		}
@@ -74,13 +69,6 @@ class ghpseoWritingAdditions { // insert our various additions to the writing pa
 			add_meta_box("{$prefix}-meta", $name, array(&$this,'meta_writing_post'), 'post', 'normal', 'high');
 		return;
 	}
-
-	function add_dashboard_widgets() { // set up our dashboard widget
-		if ($this->restrict()) return; // if restricted and current user cannot publish posts, don't do anything
-		$prefix = $this->plugin_prefix;
-		wp_add_dashboard_widget("{$prefix}-meta", $this->plugin_name, array(&$this,'do_meta_dashboard'));
-		add_action('admin_head',array(&$this,'add_dashboard_css'));
-	} 
 
 	function meta_writing_post() { // additions for posts
 		$mymeta = $this->post_set;
@@ -149,62 +137,6 @@ EOT;
 		return;
 	}
 
-	function do_meta_dashboard() {
-		// this is crazy, but we need a whole new setup for the dashboard additions as compared to the normal post and page additions, because WordPress doesn't structure its admin pages in a consistent fashion
-		if ($this->restrict()) return; // if restricted and current user cannot publish posts, don't do anything
-		$mymeta = $this->dashboard_set;
-		$prefix = $this->plugin_prefix;
-		$name = $this->plugin_name;
-		$domain = $this->domain;
-		$title = __('Additions for QuickPress',$domain);
-		$str = array (
-				"blockstart" => '',
-				"blockend" => '',
-				"tag_pre" => '',
-				"tag_post" => '',
-				"label_pre" => '',
-				"label_post" => '',
-				"label_tag_pre" => '<h4>',
-				"label_tag_post" => '</h4>',
-				"fulltag_pre" => '',
-				"fulltag_post" => '',
-				);
-		// more zaniness: have to rely on jQuery even to put our widget in a suitable position
-		$mover = <<<EOT
-<script type="text/javascript" charset="utf-8">
-/*<![CDATA[*//*---->*/
-jQuery(document).ready(function()
-{
-	var mover = jQuery('#{$prefix}-mini-box').clone ();
-	jQuery('#quick-press p.submit').before (mover);
-	jQuery('#{$prefix}-meta').remove ();
-}
-);
-/*--*//*]]>*/
-</script>
-EOT;
-		echo $mover;
-		echo "<div id='{$prefix}-mini-box'>";
-		echo wptexturize("<p style='padding-top:1.5em'><strong>{$name}: {$title}</strong></p>");
-		$this->do_meta($mymeta,$str,false,true,$tabindex='3');
-		echo '</div>';
-		return;
-	} // end dashboard function
-
-	function add_dashboard_css() { // of course it would be too easy if CSS were consistent between pages...
-		if ($this->restrict()) return; // if restricted and current user cannot publish posts, don't do anything
-		$prefix = $this->plugin_prefix;
-		$css = <<<EOT
-		<style type="text/css">
-		#dashboard_quick_press #{$prefix}-mini-box .input-text-wrap, #dashboard_quick_press #{$prefix}-mini-box .textarea-wrap {margin-left:8em;}
-		#dashboard_quick_press #{$prefix}-mini-box h4 {width:8em;}
-		#dashboard_quick_press #{$prefix}-mini-box h4 label {margin:0;padding:0;}
-		</style>
-EOT;
-		echo $css;
-		return;
-	}
-
 	function do_meta($mymeta=array(), $str=array(), $withdesc=true, $echo=true, $tabindex='2', $mods=array()) { // construct the actual boxes to be inserted on the page
 		global $post;
 		if (!$mymeta) return;
@@ -245,7 +177,7 @@ EOT;
 				$checked = ( 1 == $meta_value ) ? 'checked="checked"' : '';
 			}
 			
-			if (is_array($mods[$meta['name']])) { // have to do mods for char counter, for example
+			if (isset($mods[$meta['name']]) && is_array($mods[$meta['name']])) { // have to do mods for char counter, for example
 				$tagbefore = (array_key_exists('tagbefore',$mods[$meta['name']])) ? $mods[$meta['name']]['tagbefore'] : '';
 				$tagextra = (array_key_exists('tagextra',$mods[$meta['name']])) ? $mods[$meta['name']]['tagextra'] : '';
 				$tagafter = (array_key_exists('tagafter',$mods[$meta['name']])) ? $mods[$meta['name']]['tagafter'] : '';
