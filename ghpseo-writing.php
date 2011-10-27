@@ -2,8 +2,8 @@
 
 /*  Greg's Writing Additions Setup
 	
-	Copyright (c) 2009-2010 Greg Mulhauser
-	http://counsellingresource.com
+	Copyright (c) 2009-2011 Greg Mulhauser
+	http://gregsplugins.com
 	
 	Released under the GPL license
 	http://www.opensource.org/licenses/gpl-license.php
@@ -107,13 +107,11 @@ class ghpseoWritingSetup {
 		
 		if (!$this->opt('editing_secondary_description_posts')) unset($post_set['secondary_description']);
 		
-		$dashboard_set = ($this->opt('dashboard')) ? $post_set : array();
-		
 		$docounter = ($this->opt('editing_counter') && $this->opt('editing_description')) ? "_{$prefix}_alternative_description" : '';
 		
 		// and do it!
 		
-		$args = compact('name', 'prefix', 'post_set', 'page_set', 'dashboard_set', 'restricted', 'docounter');
+		$args = compact('name', 'prefix', 'post_set', 'page_set', 'restricted', 'docounter');
 		
 		new ghpseoWritingAdditions($args);
 		
