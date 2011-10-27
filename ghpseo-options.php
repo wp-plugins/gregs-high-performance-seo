@@ -2,8 +2,8 @@
 
 /*  Greg's Options Page Setup
 	
-	Copyright (c) 2009-2010 Greg Mulhauser
-	http://counsellingresource.com
+	Copyright (c) 2009-2011 Greg Mulhauser
+	http://gregsplugins.com
 	
 	Released under the GPL license
 	http://www.opensource.org/licenses/gpl-license.php
@@ -28,8 +28,7 @@ function ghpseo_options_setngo($option_style = 'consolidate') { // set up our op
 	$plugin_prefix = 'ghpseo';
 	$domain = $plugin_prefix . '-plugin'; // text domain
 	$instname = 'instructions'; // name of page holding instructions
-	$site_link = ' <a href="http://counsellingresource.com/">CounsellingResource.com</a>';
-	$plugin_page = " <a href=\"http://counsellingresource.com/features/2009/07/23/high-performance-seo/\">Greg's High Performance SEO plugin</a>";
+	$plugin_page = " <a href=\"http://gregsplugins.com/lib/plugin-details/gregs-high-performance-seo/\">Greg's High Performance SEO plugin</a>";
 	$paypal_button = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661"><img src="https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif" name="paypalsubmit" alt="" border="0" /></a>';
 	$notices = array();
 	// WP 3.0 apparently fails occasionally to allow plugins newly activated on a subdomain to add options, so if we have no options, this will let us know; note that the workaround assumes consolidated options style
@@ -39,7 +38,6 @@ function ghpseo_options_setngo($option_style = 'consolidate') { // set up our op
 						__("On rare occasions when using WordPress 3.0+ in multisite/network mode, WordPress interferes with the normal process by which plugins first save their settings with default values. This plugin has detected that its default settings have not yet been saved, and it will not operate correctly with empty settings. Please deactivate the plugin from your plugin management screen, and then reactivate it. Hopefully WordPress will then allow the plugin to initialise its required settings.", $domain),
 						);
 	$replacements = array( // values we'll swap out in our option page text
-						'%site_link%' => $site_link,
 						'%plugin_page%' => $plugin_page,
 						'%paypal_button%' => $paypal_button,
 						);

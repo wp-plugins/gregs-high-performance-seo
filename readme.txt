@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 3.2.1
-Stable tag: 1.4.9.4
+Stable tag: 1.4.9.5
 
 Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,9 +12,9 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Minor code cleanups
+* Documentation updates
 
-For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://counsellingresource.com/features/2010/06/01/wordpress-plugins-performance-boost/)
+For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://gregsplugins.com/lib/2010/06/01/wordpress-plugins-performance-boost/)
 
 = Introduction =
 
@@ -108,7 +108,7 @@ This plugin also demonstrates the new [Sustainable Plugins Sponsorship Network](
 
 == Frequently Asked Questions ==
 
-A FAQ is provided at the main information page for the plugin, where the list can be updated independently of new releases: [Greg's High Performance SEO Plugin](http://counsellingresource.com/features/2009/07/23/high-performance-seo/)
+A FAQ is provided at the main information site for the plugin, where the list can be updated independently of new releases: [Greg's Plugins](http://gregsplugins.com/lib/faq/)
 
 == Screenshots ==
 
@@ -118,10 +118,13 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.4.9.4, 5 October 2011 =
-* Minor code cleanups
+= 1.4.9.5, 27 October 2011 =
+* Documentation updates
 
 == Changelog ==
+
+= 1.4.9.5, 27 October 2011 =
+* Documentation updates
 
 = 1.4.9.4, 5 October 2011 =
 * Minor code cleanups
