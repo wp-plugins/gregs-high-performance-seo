@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 3.2.1
-Stable tag: 1.4.9.5
+Stable tag: 1.4.9.6
 
 Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,7 +12,9 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Documentation updates
+* Removed PluginSponsors.com code following threats from Automattic
+
+For more details on the threats from Automattic which have removed financial support for this plugin, see: [Automattic Bullies WordPress Plugin Developers -- Again](http://gregsplugins.com/lib/2011/11/26/automattic-bullies/)
 
 For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://gregsplugins.com/lib/2010/06/01/wordpress-plugins-performance-boost/)
 
@@ -118,10 +120,13 @@ A FAQ is provided at the main information site for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.4.9.5, 27 October 2011 =
-* Documentation updates
+= 1.4.9.6, 26 November 2011 =
+* Removed PluginSponsors.com code following threats from Automattic
 
 == Changelog ==
+
+= 1.4.9.6, 26 November 2011 =
+* Removed PluginSponsors.com code following threats from Automattic
 
 = 1.4.9.5, 27 October 2011 =
 * Documentation updates
