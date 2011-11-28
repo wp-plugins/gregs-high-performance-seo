@@ -12,9 +12,9 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Removed PluginSponsors.com code following threats from Automattic
+* Removed PluginSponsors.com code following threats that the plugin would be expelled from the plugin repository for using the code to display sponsorship messages
 
-For more details on the threats from Automattic which have removed financial support for this plugin, see: [Automattic Bullies WordPress Plugin Developers -- Again](http://gregsplugins.com/lib/2011/11/26/automattic-bullies/)
+For more details on the threats which have removed financial support for this plugin, see [GregsPlugins.com](http://gregsplugins.com/lib/2011/11/26/automattic-bullies/). Following the initial threats, we have now been told that NO type of passive loading of an external resource for advertising purposes or sponsorship purposes will be permitted without explicit prior opt-in by the user -- i.e., no JavaScript, no iframes, no plain image loading of any kind. If you see any type of advertising of any kind in any plugin which loads any resource from any external server, you will know that this policy is not yet being fairly, uniformly and impartially applied. When it is fairly and uniformly and impartially applied, you will no longer see any type of advertising loading any external resource unless you have explicitly opted into seeing it.
 
 For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://gregsplugins.com/lib/2010/06/01/wordpress-plugins-performance-boost/)
 
@@ -121,12 +121,12 @@ A FAQ is provided at the main information site for the plugin, where the list ca
 == Upgrade Notice ==
 
 = 1.4.9.6, 26 November 2011 =
-* Removed PluginSponsors.com code following threats from Automattic
+* Removed PluginSponsors.com code following threats that the plugin would be expelled from the plugin repository for using the code to display sponsorship messages
 
 == Changelog ==
 
 = 1.4.9.6, 26 November 2011 =
-* Removed PluginSponsors.com code following threats from Automattic
+* Removed PluginSponsors.com code following threats that the plugin would be expelled from the plugin repository for using the code to display sponsorship messages
 
 = 1.4.9.5, 27 October 2011 =
 * Documentation updates
