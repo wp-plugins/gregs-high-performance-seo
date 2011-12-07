@@ -109,9 +109,11 @@ class ghpseoWritingSetup {
 		
 		$docounter = ($this->opt('editing_counter') && $this->opt('editing_description')) ? "_{$prefix}_alternative_description" : '';
 		
+		$cust_types = $this->opt('support_custom_post_types');
+		
 		// and do it!
 		
-		$args = compact('name', 'prefix', 'post_set', 'page_set', 'restricted', 'docounter');
+		$args = compact('name', 'prefix', 'post_set', 'page_set', 'restricted', 'docounter', 'cust_types');
 		
 		new ghpseoWritingAdditions($args);
 		

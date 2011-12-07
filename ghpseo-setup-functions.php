@@ -64,6 +64,7 @@ class ghpseoSetupHandler {
 				array("editing_secondary_description_posts", "0", 'intval'),
 				array("editing_secondary_description_pages", "1", 'intval'),
 				array("editing_counter", "1", 'intval'),
+				array("support_custom_post_types", "0", 'intval'),
 				array("restrict_access", "1", 'intval'),
 				array("enable_modifications", "0", 'intval'),
 				array("obnoxious_mode", "0", 'intval'),

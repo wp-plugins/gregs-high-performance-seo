@@ -30,6 +30,7 @@ class ghpseoWritingAdditions { // insert our various additions to the writing pa
 	var $post_set;             // additions for post editing
 	var $page_set;             // additions for page editing
 	var $docounter;            // add a character counter to this box
+	var $cust_types;		   // support custom post types?
 
 	function ghpseoWritingAdditions($args) {
 		$this->__construct($args);
@@ -45,6 +46,7 @@ class ghpseoWritingAdditions { // insert our various additions to the writing pa
 		$this->post_set = $post_set;
 		$this->page_set = $page_set;
 		$this->docounter = $docounter;
+		$this->cust_types = $cust_types;
 		// add actions depending on where user has told us to place additions
 		if ($post_set || $page_set) {
 			add_action('admin_menu', array(&$this, 'add_boxes'));
@@ -67,6 +69,15 @@ class ghpseoWritingAdditions { // insert our various additions to the writing pa
 			add_meta_box("{$prefix}-meta", $name, array(&$this,'meta_writing_page'), 'page', 'normal', 'high');
 		if ($this->post_set)
 			add_meta_box("{$prefix}-meta", $name, array(&$this,'meta_writing_post'), 'post', 'normal', 'high');
+		if ($this->post_set && $this->cust_types) {
+			$args = array(
+					'_builtin' => false
+					); 
+			$post_types = get_post_types($args);
+			foreach ($post_types  as $post_type ) {
+				add_meta_box("{$prefix}-meta", $name, array(&$this,'meta_writing_post'), $post_type, 'normal', 'high');
+			}
+		}
 		return;
 	}
 
