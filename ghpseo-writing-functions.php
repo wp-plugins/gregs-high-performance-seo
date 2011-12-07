@@ -216,20 +216,23 @@ EOT;
 		return;
 	} // end function for showing boxes
 
-	function save_postdata( $post_id ) { // welcome to the old days: we have to save this stuff ourself; some day, hopefully, there will be an analogue of register_setting for this job
+	function save_postdata( $post_id ) { // welcome to the old days: we have to save this stuff ourselves; some day, hopefully, there will be an analogue of register_setting for this job
 		global $post;
 		if ($this->restrict()) return; // if restricted and current user cannot publish posts, don't do anything
 		
 		// *** NOTE problems may occur with the following line if dashboard ever has different set than post set
-		$meta_set = ( 'page' == $_POST['post_type'] ) ? $this->page_set : $this->post_set;
+		$meta_set = ( ( isset($_POST['post_type']) ) && ( 'page' == $_POST['post_type'] ) ) ? $this->page_set : $this->post_set;
 		
-		foreach($meta_set as $meta) {
+		foreach ($meta_set as $meta) {
 			// Verify this came from the appropriate screen and with authentication
-			if ( !wp_verify_nonce( $_POST[$meta['name'].'_noncename'], plugin_basename(__FILE__) )) {
+			if (!isset($_POST[$meta['name'].'_noncename']) || !wp_verify_nonce( $_POST[$meta['name'].'_noncename'], plugin_basename(__FILE__) )) {
 				return $post_id;
 			}
-			
-			if ( 'page' == $_POST['post_type'] ) {
+/*			if ( !wp_verify_nonce( $_POST[$meta['name'].'_noncename'], plugin_basename(__FILE__) )) {
+				return $post_id;
+			}
+*/			
+			if ( ( isset($_POST['post_type']) ) && ( 'page' == $_POST['post_type'] ) ) {
 				if ( !current_user_can( 'edit_page', $post_id )) return $post_id;
 			}
 			else {
