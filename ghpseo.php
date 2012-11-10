@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: Greg's High Performance SEO
-Plugin URI: http://counsellingresource.com/features/2009/07/23/high-performance-seo/
-Description: Configure over 100 separate on-page SEO characteristics. Load just 600 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.4.1
+Plugin URI: http://gregsplugins.com/lib/plugin-details/gregs-high-performance-seo/
+Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
+Version: 1.5.1
 Author: Greg Mulhauser
-Author URI: http://counsellingresource.com/
+Author URI: http://gregsplugins.com/
 */
 
-/*  Copyright (c) 2009-10 Greg Mulhauser
+/*  Copyright (c) 2009-12 Greg Mulhauser
 
     This WordPress plugin is released under the GPL license
     http://www.opensource.org/licenses/gpl-license.php
@@ -181,7 +181,7 @@ class gregsHighPerformanceSEO {
 		return $multipage;
 	} // end check for multipage
 
-	function this_page() { // return current page
+	function this_page() { // return current page number
 		global $wp_query,$paged;
 		if ($paged > 1) return $paged;
 		$page = get_query_var('page');
@@ -413,9 +413,10 @@ class gregsHighPerformanceSEO {
 		else return $content;
 	} // end paged comments dupefix
 
-	function get_author($meta = 'display_name') { // simple author meta grabber
+	function get_author($meta = 'display_name') { // simple author meta grabber, just for use on author archives
 		global $wp_query;
-		$curauth = $wp_query->get_queried_object();
+		if (!is_author()) return '';
+		$curauth = get_userdata(get_query_var('author'));
 		return $curauth->$meta;
 	} // end get author
 
@@ -462,11 +463,12 @@ class gregsHighPerformanceSEO {
 		if ($this->opt('paged_comments_meta_enable') && $this->get_comment_page()) {
 			$description = $this->head_desc_comments();
 			$custom = true;
+			$secondary_fallback = false;
 		} // end handling comments pages
 		else { // all the rest of this occurs only if we don't need a custom comments page meta
 			$key = $this->get_type_key();
 			$default  = get_bloginfo('name') . ': ' . get_bloginfo('description');
-			$custom = $secondary_fallback = false;
+			$custom = $mp = $secondary_fallback = false;
 			if ($this->treat_like_post($key)) { // posts, pages, and static front page or posts
 				if ($this->opt('enable_alt_description')) {
 					$tocheck = $this->id_to_check($key);
@@ -483,10 +485,11 @@ class gregsHighPerformanceSEO {
 					} // end handling legacy descriptions
 				} // end check for alt desc enabled
 				if (!$custom) { // no custom description?
-					$description_longer = $post->post_excerpt;
+					$description_longer = apply_filters('get_the_excerpt', $post->post_excerpt);
 					if ($description_longer == '') $description_longer = $post->post_content;
 					$description = trim(strip_tags(stripcslashes(str_replace(array("\r\n", "\r", "\n"), " ", $description_longer))));
 				} // end handling single or page but not custom
+				if ($this->is_multipage()) $mp = true; // and tweak for multi-page singles
 			} // end handling single or page
 			else { // if not single or page...
 				$swap = array(
@@ -505,16 +508,20 @@ class gregsHighPerformanceSEO {
 					if (is_array($metaswaps[$key]['1'])) $swap = array_merge($swap,$metaswaps[$key]['1']);
 				}    
 				else $description = $default; // if it was none of these, just get name, desc
-				if (is_paged()) { // modify with something like a page number, if this is paged?
-					$modifier = $this->opt_clean($metaswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
-					if ($modifier != '') $description = str_replace('%prior_meta_desc%',$description,$modifier); 
-					$swap = array_merge($swap,$metaswaps['paged']['1']);
-				} // end handling paged
+				if (is_paged())$mp = true; // modify with something like a page number, if this is paged
 				$description = str_replace(array_keys($swap), array_values($swap),$description);
 				$description = wp_specialchars_decode($description, ENT_QUOTES); // just to make sure we don't send it out encoded twice
 				$description = strip_tags($this->strip_para($description)); // kill leftover markup
 				if ($description == '') $description = $default;
 			} // end handling other than single or page, now do stuff common to both
+			if ($mp) { // multi-page mods, same for singular and others
+				$suffix = '_meta_desc';
+				$metaswaps = $this->get_swaps('paged');
+				$modifier = $this->opt_clean($metaswaps['paged']['0'] . $suffix); // do some trickery to modify the title for paging
+				if ($modifier != '') $description = str_replace('%prior_meta_desc%',$description,$modifier);
+				$swap = $metaswaps['paged']['1'];
+				$description = str_replace(array_keys($swap), array_values($swap),$description);
+			}
 		} // end of handling other than comments pages
 		
 		$description = $this->clean_shortcodes($description); // get rid of shortcodes
@@ -601,6 +608,14 @@ class gregsHighPerformanceSEO {
 		return;
 	} // end head keywords
 
+	// check whether the passed type should be excluded from indexing at this depth
+	function exclude_by_depth($check = 'date') {
+		$depth_limit = intval($this->opt("depth_{$check}_exclude")); // depth limit specified?
+		if ($depth_limit < 1) return false;
+		if ($this->this_page() > $depth_limit) return true;
+		else return false;
+	}
+	
 	function robots() { // construct head robots
 		global $post;
 		if (is_404()) return;
@@ -608,9 +623,9 @@ class gregsHighPerformanceSEO {
 		if (!$this->opt('index_enable')) return;
 		$tocheck = array ('author','category','search','tag','date', 'attachment');
 		$exclude = false;
-		foreach ($tocheck as $check) { // have we been told to exclude certain types of archives?
+		foreach ($tocheck as $check) { // have we been told to exclude certain types?
 			$fx = 'is_' . $check;
-			if ($fx() && $this->opt('index_' . $check . '_exclude')) $exclude = true;
+			if ($fx() && ($this->opt("index_{$check}_exclude") || $this->exclude_by_depth($check)) ) $exclude = true;
 		} // end loop over types to check
 		if ($exclude) {
 			$index = 'noindex';
@@ -618,20 +633,42 @@ class gregsHighPerformanceSEO {
 		} // end case for excluding
 		else $index = 'index,follow';
 		if ($this->opt('index_noodp')) $index .= ',noodp,noydir';
+		if (is_ssl() && $this->opt('index_no_ssl')) $index = str_replace(array('index','follow'), array('noindex','nofollow'), $index);
 		$output = "<meta name=\"robots\" content=\"{$index}\" />\n";
 		if ($this->opt('obnoxious_mode')) return $output;
 		else echo $output;
 		return;
 	} // end robots
 
+	// Adapted from WP's private _wp_link_page(): provides URL for page $i of multi-page posts
+	function get_current_paged_link($i = 1) {
+		global $post, $wp_rewrite;
+		$total = $this->this_page_total();
+		if ((1 == $i) || (1 == $total)) {
+			$url = get_permalink();
+		}
+		else {
+			if ($i > $total) $i = $total;
+			if ( '' == get_option('permalink_structure') || in_array($post->post_status, array('draft', 'pending')) )
+				$url = add_query_arg( 'page', $i, get_permalink() );
+			elseif ( 'page' == get_option('show_on_front') && get_option('page_on_front') == $post->ID )
+				$url = trailingslashit(get_permalink()) . user_trailingslashit("$wp_rewrite->pagination_base/" . $i, 'single_paged');
+			else
+				$url = trailingslashit(get_permalink()) . user_trailingslashit($i, 'single_paged');
+		}
+		return $url;
+	}
+	
 	function canonical() { // handle canonical URLs
 		global $post;
 		if (is_404()) return;
 		if (!is_singular()) return;
 		if ($this->get_comment_page()) return;
-		//$permalink = get_permalink();
-		$permalink = ($this->opt('enable_modifications')) ? apply_filters('ghpseo_canonical_url',get_permalink()) : get_permalink();
-		$output = ($this->opt('canonical_enable')) ? "<link rel=\"canonical\" href=\"{$permalink}\" />\n" : '';
+		if (!$this->opt('canonical_enable')) return;
+		$link = $this->get_current_paged_link($this->this_page()); // handles permalink + paged links
+		if (is_ssl() && $this->opt('canonical_no_ssl')) $link = str_replace('https://', 'http://', $link);
+		if ($this->opt('enable_modifications')) $link = apply_filters('ghpseo_canonical_url',$link);
+		$output = "<link rel=\"canonical\" href=\"{$link}\" />\n";
 		if ($this->opt('obnoxious_mode')) return $output;
 		else echo $output;
 		return;
