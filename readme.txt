@@ -3,8 +3,10 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 3.3
-Stable tag: 1.5
+Tested up to: 3.5
+Stable tag: 1.5.1
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
 
@@ -12,7 +14,8 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Supports SEO writing/editing additions for custom post types: enable via 'Writing and Editing Additions' on the main configuration page.
+* Re-confirmed compatibility with WordPress 3.5.
+* Documentation updates.
 
 = Introduction =
 
@@ -84,6 +87,10 @@ WordPress itself seamlessly imports legacy data from several plugins, providing 
 * Simple Tagging
 * Ultimate Tag Warrior
 
+== Support ==
+
+Support is provided at the main information site for the plugin: [Greg's Plugins](http://gregsplugins.com/)
+
 == Installation ==
 
 1. Unzip the plugin archive
@@ -100,10 +107,6 @@ The plugin includes an extensive usage guide and introduction to SEO, which deta
 
 This plugin fully supports the standard WordPress uninstall interface, available from your plugins page. The uninstallation routine removes all settings for this plugin but leaves intact any additional information you have specified on a per-post or per-page basis. 
 
-= Sustainable Plugin Development =
-
-This plugin also demonstrates the new [Sustainable Plugins Sponsorship Network](http://pluginsponsors.com/), which aims to connect plugin developers with sponsors eager to support their creative efforts. You can easily switch off any sponsorship messages with a quick visit to the 'Contribute' page of your SEO settings; please see the 'Instructions' page for full details.
-
 == Frequently Asked Questions ==
 
 A FAQ is provided at the main information site for the plugin, where the list can be updated independently of new releases: [Greg's Plugins](http://gregsplugins.com/lib/faq/)
@@ -116,10 +119,15 @@ A FAQ is provided at the main information site for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.5, 7 December 2011 =
-* Supports SEO writing/editing additions for custom post types: enable via 'Writing and Editing Additions' on the main configuration page.
+= 1.5.1, 10 November 2012 =
+* Re-confirmed compatibility with WordPress 3.5.
+* Documentation updates.
 
 == Changelog ==
+
+= 1.5.1, 10 November 2012 =
+* Re-confirmed compatibility with WordPress 3.5.
+* Documentation updates.
 
 = 1.5, 7 December 2011 =
 * Supports SEO writing/editing additions for custom post types: enable via 'Writing and Editing Additions' on the main configuration page.
@@ -254,7 +262,7 @@ A FAQ is provided at the main information site for the plugin, where the list ca
 = 1.0, 23 July 2009 =
 * Initial public release
 
-== Fine Print ==
+== License ==
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License version 3 as published by the Free Software Foundation.
 

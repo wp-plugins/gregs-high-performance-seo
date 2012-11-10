@@ -2,7 +2,7 @@
 
 /*  Greg's Writing Additions
 	
-	Copyright (c) 2009-2011 Greg Mulhauser
+	Copyright (c) 2009-2012 Greg Mulhauser
 	http://gregsplugins.com
 	
 	Released under the GPL license
