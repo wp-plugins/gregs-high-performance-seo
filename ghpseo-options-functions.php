@@ -2,8 +2,8 @@
 
 /*  Greg's Options Handler
 	
-	Copyright (c) 2009-2010 Greg Mulhauser
-	http://counsellingresource.com
+	Copyright (c) 2009-2012 Greg Mulhauser
+	http://gregsplugins.com
 	
 	Released under the GPL license
 	http://www.opensource.org/licenses/gpl-license.php
@@ -58,10 +58,10 @@ class ghpseoOptionsHandler {
 		$this->notices = (array)$notices;
 		$this->problems = (array)$problems;
 		$this->box_hook = $plugin_prefix . 'optionboxes_';
-		$dir = str_replace(basename( __FILE__),"",plugin_basename(__FILE__)); // get plugin folder name
-		$base = str_replace("-functions.php","",basename( __FILE__)); // get this file's name without extension, assuming it ends with '-functions.php'
+		$dir = basename(dirname( __FILE__)) . '/'; // get plugin folder name
+		$base = basename( __FILE__, '-functions.php'); // get this file's name without extension, assuming it ends with '-functions.php'
 		$this->path = $dir . $base;
-		$subdir = (is_null($subdir)) ? 'options-set' : $subdir;
+		if (!isset($subdir)) $subdir = 'options-set';
 		$subdir .= ($subdir != '') ? '/' : '';
 		$root = WP_PLUGIN_DIR . '/' . $dir . $subdir; // this is where we're looking for our options files
 		$sub = isset ($_GET['submenu']) ? $_GET['submenu'] : '';
@@ -127,7 +127,9 @@ class ghpseoOptionsHandler {
 		if (!$this->consolidate) return get_option($this->plugin_prefix . $setting);
 		// handle consolidated setting retrieval
 		$settings = get_option($this->plugin_prefix . 'settings');
-		return $settings[$setting];
+		if (isset($settings[$setting]))
+			return $settings[$setting];
+		else return null;
 	}
 	
 	function do_option_replacements($content='') { // we may have some values to swap out
@@ -175,6 +177,7 @@ class ghpseoOptionsHandler {
 	
 	function conflict_check($problemapps=array(),$name='') { // are other plugins running which could conflict with this one? if so, construct a message to that effect
 		$domain = $this->domain;
+		$conflict = '';
 		foreach ($problemapps as $problemapp) {
 			$test = (array_key_exists('class',$problemapp)) ? 'class' : 'function';
 			$testfx = $test . '_exists';
@@ -185,7 +188,7 @@ class ghpseoOptionsHandler {
 				else $remedy = '';
 			} // end testing for problem apps
 		} // end loop over problem apps
-		if ($conflict == '') $message = array();
+		if ('' == $conflict) $message = array();
 		else {
 			$warningprefix = __('Warning: Possible conflict with', $domain);
 			$warningend = ($remedy != '') ? $remedy : __('For best results, please disable the interfering plugin',$domain);
