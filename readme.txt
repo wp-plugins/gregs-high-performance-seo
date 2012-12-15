@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 3.5
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,10 +12,12 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 == Description ==
 
+**NOTE:** Please do NOT use the WordPress forums to seek support for this plugin. Support for GHPSEO is handled on [our own site](http://gregsplugins.com/lib/faq/).
+
 = New in This Version =
 
-* Re-confirmed compatibility with WordPress 3.5.
-* Documentation updates.
+* Replaced some ancient admin page code to enable loading the plugin through a symbolic link.
+* Restored link to support and information site, which had been removed accidentally.
 
 = Introduction =
 
@@ -93,6 +95,8 @@ Support is provided at the main information site for the plugin: [Greg's Plugins
 
 == Installation ==
 
+**NOTE:** Please do NOT use the WordPress forums to seek support for this plugin. Support for GHPSEO is handled on [our own site](http://gregsplugins.com/lib/faq/).
+
 1. Unzip the plugin archive
 2. Upload the entire folder `gregs-high-performance-seo` to your plugins folder (usually `/wp-content/plugins/`)
 3. Activate the plugin through the 'Plugins' menu in WordPress
@@ -109,7 +113,9 @@ This plugin fully supports the standard WordPress uninstall interface, available
 
 == Frequently Asked Questions ==
 
-A FAQ is provided at the main information site for the plugin, where the list can be updated independently of new releases: [Greg's Plugins](http://gregsplugins.com/lib/faq/)
+**NOTE:** Please do NOT use the WordPress forums to seek support for this plugin. Support for GHPSEO is handled on [our own site](http://gregsplugins.com/lib/faq/).
+
+A FAQ is provided at the site, where the list can be updated independently of new releases.
 
 == Screenshots ==
 
@@ -119,11 +125,15 @@ A FAQ is provided at the main information site for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.5.1, 10 November 2012 =
-* Re-confirmed compatibility with WordPress 3.5.
-* Documentation updates.
+= 1.5.2, 15 December 2012 =
+* Replaced some ancient admin page code to enable loading the plugin through a symbolic link.
+* Restored link to support and information site, which had been removed accidentally.
 
 == Changelog ==
+
+= 1.5.2, 15 December 2012 =
+* Replaced some ancient admin page code to enable loading the plugin through a symbolic link.
+* Restored link to support and information site, which had been removed accidentally.
 
 = 1.5.1, 10 November 2012 =
 * Re-confirmed compatibility with WordPress 3.5.

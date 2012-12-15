@@ -58,8 +58,8 @@ class ghpseoOptionsHandler {
 		$this->notices = (array)$notices;
 		$this->problems = (array)$problems;
 		$this->box_hook = $plugin_prefix . 'optionboxes_';
-		$dir = str_replace(basename( __FILE__),"",plugin_basename(__FILE__)); // get plugin folder name
-		$base = str_replace("-functions.php","",basename( __FILE__)); // get this file's name without extension, assuming it ends with '-functions.php'
+		$dir = basename(dirname( __FILE__)) . '/'; // get plugin folder name
+		$base = basename( __FILE__, '-functions.php'); // get this file's name without extension, assuming it ends with '-functions.php'
 		$this->path = $dir . $base;
 		if (!isset($subdir)) $subdir = 'options-set';
 		$subdir .= ($subdir != '') ? '/' : '';
