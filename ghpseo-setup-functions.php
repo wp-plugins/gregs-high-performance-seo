@@ -353,7 +353,7 @@ class ghpseoSetupHandler {
 	
 	function plugin_settings_link($links) {
 		$prefix = $this->plugin_prefix;
-		$here = str_replace(basename( __FILE__),"",plugin_basename(__FILE__)); // get plugin folder name
+		$here = basename(dirname( __FILE__)) . '/'; // get plugin folder name
 		$settings = "options-general.php?page={$here}{$prefix}-options.php";
 		$settings_link = "<a href='{$settings}'>" . __('Settings') . '</a>';
 		array_unshift( $links, $settings_link );
