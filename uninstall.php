@@ -23,10 +23,9 @@ grm_delete_and_go();
 
 function grm_delete_and_go() {
 	// first figure out our prefix
-	$path = WP_PLUGIN_DIR . '/' . str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
+	$path = WP_PLUGIN_DIR . '/' . basename(dirname( __FILE__)) . '/';
 	$files = glob($path . '*-setup-functions.php');
-	$plugin_prefix = str_replace($path, '', $files[0]);
-	$plugin_prefix = str_replace('-setup-functions.php', '', $plugin_prefix);
+	$plugin_prefix = basename($files[0], '-setup-functions.php');
 	if ('' == $plugin_prefix) return; // something went wrong getting prefix, so don't do anything
 	// now carry on with uninstall
 	$options_set = array();
