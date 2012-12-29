@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://gregsplugins.com/lib/plugin-details/gregs-high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.5.2
+Version: 1.5.3
 Author: Greg Mulhauser
 Author URI: http://gregsplugins.com/
 */
@@ -209,10 +209,13 @@ class gregsHighPerformanceSEO {
 		$this_page_total = ($this->is_multipage()) ? $this->this_page_total() : intval($wp_query->max_num_pages);
 		$secondary = $this->treat_like_post($type) ? $this->get_secondary_title() : '';
 		$full_url = ($type == '404') ? 'http://' . str_replace('\\','/',htmlspecialchars(strip_tags(stripslashes($_SERVER['SERVER_NAME']))) .   htmlspecialchars(strip_tags(stripslashes($_SERVER['REQUEST_URI'])))) : '';
+		if (is_404()) return array(
+			"404" => array('404',array("%error_url%" => $full_url)),
+			);
 		$cat_desc = ($type == 'category') ? wp_specialchars_decode($this->strip_para(stripslashes(category_description()),$this->opt('cat_desc_leave_breaks')),ENT_QUOTES) : '';
 		$cat_of_post = ($type == 'single') ? $this->titlecase($this->get_category_quick($post)) : '';
 		$tag_desc = (($type == 'tag') && function_exists('tag_description')) ? $this->strip_para(tag_description(),$this->opt('tag_desc_leave_breaks')) : '';
-		return array (
+		$swaps = array (
 			"frontnotpaged" => array ('home',''),
 			"frontispaged" => array ('home_paged',''),
 			"homestaticfront" => array ('home_static_front',array("%page_title%" => single_post_title('',false), "%page_title_custom%" => $secondary)),
@@ -229,8 +232,9 @@ class gregsHighPerformanceSEO {
 			"day" => array ('day_archive',array("%day%" => get_the_time('F jS, Y'))),
 			"otherdate" => array ('other_date_archive',''),
 			"paged" => array ('paged_modification',array("%page_number%" => $this_page, "%page_total%" => $this_page_total)),
-			"404" => array('404',array("%error_url%" => $full_url)),
+//			"404" => array('404',array("%error_url%" => $full_url)),
 			);
+		return $swaps;
 	} // end setting array of swaps
 
 	function select_desc_comments() { // select and construct the secondary description to use for comment pages
@@ -369,7 +373,7 @@ class gregsHighPerformanceSEO {
 		$swap = array("%blog_name%" => get_bloginfo('name'));
 		
 		$key = $this->get_type_key();
-		
+
 		$titleswaps = $this->get_swaps($key);
 		
 		if ($key != '') {
