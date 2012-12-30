@@ -197,10 +197,12 @@ EOT;
 			
 			$toreplace = array ('%NAME%','%VALUE%','%DESCRIPTION%','%CHECKED%','%TAGBEFORE%','%TAGEXTRA%','%TAGAFTER%','%TABINDEX%');
 			$replacements = array ($meta['name'],$meta_value,$meta['description'],$checked,$tagbefore,$tagextra,$tagafter,'tabindex="' . $tabindex . '"');
+
+			$here = basename(dirname( __FILE__)) . '/' . basename( __FILE__); // don't use plugin_basename
 			
 			$output .= $str['label_pre'];
 			$output .= $str['label_tag_pre'] . '<label for="%NAME%">' . $meta['title'] . '</label>' . $str['label_tag_post'];
-			$output .= '<input type="hidden" name="%NAME%_noncename" id="%NAME%_noncename" value="'.wp_create_nonce( plugin_basename(__FILE__) ).'" />';
+			$output .= '<input type="hidden" name="%NAME%_noncename" id="%NAME%_noncename" value="'.wp_create_nonce( $here ).'" />';
 			$output .= $str['label_post'];
 			$output .= $str['fulltag_pre'];
 			$output .= $fulltag;
@@ -223,9 +225,11 @@ EOT;
 		// *** NOTE problems may occur with the following line if dashboard ever has different set than post set
 		$meta_set = ( ( isset($_POST['post_type']) ) && ( 'page' == $_POST['post_type'] ) ) ? $this->page_set : $this->post_set;
 		
+		$here = basename(dirname( __FILE__)) . '/' . basename( __FILE__); // don't use plugin_basename
+
 		foreach ($meta_set as $meta) {
 			// Verify this came from the appropriate screen and with authentication
-			if (!isset($_POST[$meta['name'].'_noncename']) || !wp_verify_nonce( $_POST[$meta['name'].'_noncename'], plugin_basename(__FILE__) )) {
+			if (!isset($_POST[$meta['name'].'_noncename']) || !wp_verify_nonce( $_POST[$meta['name'].'_noncename'], $here )) {
 				return $post_id;
 			}
 /*			if ( !wp_verify_nonce( $_POST[$meta['name'].'_noncename'], plugin_basename(__FILE__) )) {

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 3.5
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,7 +16,7 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Under-the-hood improvements to title handling on 404 pages.
+* Further workarounds for bugs in WordPress's plugin_basename() function.
 
 = Introduction =
 
@@ -124,10 +124,13 @@ A FAQ is provided at the site, where the list can be updated independently of ne
 
 == Upgrade Notice ==
 
-= 1.5.3, 29 December 2012 =
-* Under-the-hood improvements to title handling on 404 pages.
+= 1.5.4, 30 December 2012 =
+* Further workarounds for bugs in WordPress's plugin_basename() function.
 
 == Changelog ==
+
+= 1.5.4, 30 December 2012 =
+* Further workarounds for bugs in WordPress's plugin_basename() function.
 
 = 1.5.3, 29 December 2012 =
 * Under-the-hood improvements to title handling on 404 pages.
