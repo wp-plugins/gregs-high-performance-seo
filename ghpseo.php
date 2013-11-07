@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://gregsplugins.com/lib/plugin-details/gregs-high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.5.5
+Version: 1.5.6
 Author: Greg Mulhauser
 Author URI: http://gregsplugins.com/
 */
@@ -268,12 +268,15 @@ class gregsHighPerformanceSEO {
 					$desc = $this->select_desc_comments();
 				else {
 					$tocheck = $this->id_to_check($key);
-					$desc = $this->get_meta_clean($tocheck, 'secondary_desc', true);
-					if (($desc == '') && has_excerpt())
-						$desc = get_the_excerpt();
-					if (($desc == '') || ($this->opt('secondary_desc_override_excerpt')))
+					$desc = trim($this->get_meta_clean($tocheck, 'secondary_desc', true));
+					if (($desc == '') && has_excerpt()) {
+						if ($this->opt('secondary_desc_override_excerpt'))
+							$desc = $default;
+						else $desc = get_the_excerpt();
+					}
+					if (($desc == '') && !has_excerpt())
 						$desc = $default;
-					if (($desc == '') && !($this->opt('secondary_desc_use_blank')))
+					if (($desc == '') && !$this->opt('secondary_desc_use_blank'))
 						$desc = get_the_excerpt();
 				} // end handling single posts and pages not comments
 			} // end handling single posts and pages
