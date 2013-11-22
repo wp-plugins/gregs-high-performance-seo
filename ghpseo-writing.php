@@ -28,11 +28,6 @@ class ghpseoWritingSetup {
 	var $plugin_prefix;        // prefix for this plugin
 	var $consolidate;          // whether we'll be consolidating our options into single array, or keeping discrete
 
-	function ghpseoWritingSetup($name='', $plugin_prefix='', $option_style='') {
-		$this->__construct($name, $plugin_prefix, $option_style);
-		return;
-	} 
-
 	function __construct($name='', $plugin_prefix='', $option_style='') {
 		$this->plugin_prefix = $plugin_prefix;
 		if (!empty($option_style)) $this->consolidate = ('consolidate' == $option_style) ? true : false;

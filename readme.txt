@@ -3,8 +3,8 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 3.7.1
-Stable tag: 1.5.6
+Tested up to: 3.8-beta-1
+Stable tag: 1.5.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,8 +16,7 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Improved delivery of the on-page secondary description to better match documented behaviour
-* Noted compatibility with latest WordPress version
+* Dropped compatibility with very old versions of PHP no longer supported by WordPress.
 
 = Introduction =
 
@@ -125,11 +124,13 @@ A FAQ is provided at the site, where the list can be updated independently of ne
 
 == Upgrade Notice ==
 
-= 1.5.6, 7 November 2013 =
-* Improved delivery of the on-page secondary description to better match documented behaviour
-* Noted compatibility with latest WordPress version
+= 1.5.7, 22 November 2013 =
+* Dropped compatibility with very old versions of PHP no longer supported by WordPress.
 
 == Changelog ==
+
+= 1.5.7, 22 November 2013 =
+* Dropped compatibility with very old versions of PHP no longer supported by WordPress.
 
 = 1.5.6, 7 November 2013 =
 * Improved delivery of the on-page secondary description to better match documented behaviour

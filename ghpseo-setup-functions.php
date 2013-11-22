@@ -29,11 +29,6 @@ class ghpseoSetupHandler {
 	var $options_page_details = array();      // setting up our options page
 	var $consolidate;                         // whether to consolidate options into arrays, or keep discrete
 
-	function ghpseoSetupHandler ($args,$options_page_details) {
-		$this->__construct($args,$options_page_details);
-		return;
-	} 
-
 	function __construct($args,$options_page_details) {
 		extract($args);
 		$this->plugin_prefix = $prefix;

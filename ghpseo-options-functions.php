@@ -41,11 +41,6 @@ class ghpseoOptionsHandler {
 	var $box_hook;               // keeping track of our boxes and box states
 	var $consolidate;            // whether to consolidate options into single array
 	
-	function ghpseoOptionsHandler($args) {
-		$this->__construct($args);
-		return;
-	} 
-	
 	function __construct($args) {
 		extract($args);
 		$this->replacements = (array)$replacements;

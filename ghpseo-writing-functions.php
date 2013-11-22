@@ -32,11 +32,6 @@ class ghpseoWritingAdditions { // insert our various additions to the writing pa
 	var $docounter;            // add a character counter to this box
 	var $cust_types;		   // support custom post types?
 
-	function ghpseoWritingAdditions($args) {
-		$this->__construct($args);
-		return;
-	}
-	
 	function __construct($args) {
 		extract($args);
 		$this->plugin_name = wptexturize($name);

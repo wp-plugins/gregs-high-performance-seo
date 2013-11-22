@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://gregsplugins.com/lib/plugin-details/gregs-high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.5.6
+Version: 1.5.7
 Author: Greg Mulhauser
 Author URI: http://gregsplugins.com/
 */
@@ -30,11 +30,6 @@ class gregsHighPerformanceSEO {
 
 	var $plugin_prefix;        // prefix for option names and post meta tables
 	var $consolidate;          // whether we'll be consolidating our options into single array, or keeping discrete
-
-	function gregsHighPerformanceSEO($plugin_prefix='',$option_style='') {
-		$this->__construct($plugin_prefix,$option_style);
-		return;
-	} 
 
 	function __construct($plugin_prefix='',$option_style='') {
 		$this->plugin_prefix = $plugin_prefix . '_';
