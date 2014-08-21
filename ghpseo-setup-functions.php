@@ -165,8 +165,10 @@ class ghpseoSetupHandler {
 				array("depth_attachment_exclude", "", 'intval'),
 				array("index_nofollow", "0", 'intval'),
 				array("index_no_ssl", "0", 'intval'),
+				array("index_always_ssl", "0", 'intval'),
 				array("canonical_enable", "1", 'intval'),
 				array("canonical_no_ssl", "0", 'intval'),
+				array("canonical_always_ssl", "0", 'intval'),
 				array("canonical_disable_builtin", "1", 'intval'),
 				),
 			'maintitles' => array(

@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://gregsplugins.com/lib/plugin-details/gregs-high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.5.8
+Version: 1.5.9
 Author: Greg Mulhauser
 Author URI: http://gregsplugins.com/
 */
@@ -631,11 +631,16 @@ class gregsHighPerformanceSEO {
 		} // end loop over types to check
 		if ($exclude) {
 			$index = 'noindex';
-			if ($this->opt('index_nofollow')) $index .= ',nofollow';
+			if ($this->opt('index_nofollow'))
+				$index .= ',nofollow';
 		} // end case for excluding
 		else $index = 'index,follow';
-		if ($this->opt('index_noodp')) $index .= ',noodp,noydir';
-		if (is_ssl() && $this->opt('index_no_ssl')) $index = str_replace(array('index','follow'), array('noindex','nofollow'), $index);
+		if ($this->opt('index_noodp'))
+			$index .= ',noodp,noydir';
+		if (is_ssl() && $this->opt('index_no_ssl') && !$exclude)
+			$index = str_replace(array('index','follow'), array('noindex','nofollow'), $index);
+		elseif (!is_ssl() && $this->opt('index_always_ssl') && !$exclude)
+			$index = str_replace(array('index','follow'), array('noindex','nofollow'), $index);
 		$output = "<meta name=\"robots\" content=\"{$index}\" />\n";
 		if ($this->opt('obnoxious_mode')) return $output;
 		else echo $output;
@@ -668,8 +673,12 @@ class gregsHighPerformanceSEO {
 		if ($this->get_comment_page()) return;
 		if (!$this->opt('canonical_enable')) return;
 		$link = $this->get_current_paged_link($this->this_page()); // handles permalink + paged links
-		if (is_ssl() && $this->opt('canonical_no_ssl')) $link = str_replace('https://', 'http://', $link);
-		if ($this->opt('enable_modifications')) $link = apply_filters('ghpseo_canonical_url',$link);
+		if (is_ssl() && $this->opt('canonical_no_ssl'))
+			$link = str_replace('https://', 'http://', $link);
+		elseif (!is_ssl() && $this->opt('canonical_always_ssl'))
+			$link = str_replace('http://', 'https://', $link);
+		if ($this->opt('enable_modifications'))
+			$link = apply_filters('ghpseo_canonical_url',$link);
 		$output = "<link rel=\"canonical\" href=\"{$link}\" />\n";
 		if ($this->opt('obnoxious_mode')) return $output;
 		else echo $output;
