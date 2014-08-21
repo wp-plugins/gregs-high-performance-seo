@@ -2,8 +2,8 @@
 
 /*  Greg's Writing Additions Setup
 	
-	Copyright (c) 2009-2010 Greg Mulhauser
-	http://counsellingresource.com
+	Copyright (c) 2009-2012 Greg Mulhauser
+	http://gregsplugins.com
 	
 	Released under the GPL license
 	http://www.opensource.org/licenses/gpl-license.php
@@ -27,11 +27,6 @@ class ghpseoWritingSetup {
 
 	var $plugin_prefix;        // prefix for this plugin
 	var $consolidate;          // whether we'll be consolidating our options into single array, or keeping discrete
-
-	function ghpseoWritingSetup($name='', $plugin_prefix='', $option_style='') {
-		$this->__construct($name, $plugin_prefix, $option_style);
-		return;
-	} 
 
 	function __construct($name='', $plugin_prefix='', $option_style='') {
 		$this->plugin_prefix = $plugin_prefix;
@@ -107,13 +102,13 @@ class ghpseoWritingSetup {
 		
 		if (!$this->opt('editing_secondary_description_posts')) unset($post_set['secondary_description']);
 		
-		$dashboard_set = ($this->opt('dashboard')) ? $post_set : array();
-		
 		$docounter = ($this->opt('editing_counter') && $this->opt('editing_description')) ? "_{$prefix}_alternative_description" : '';
+		
+		$cust_types = $this->opt('support_custom_post_types');
 		
 		// and do it!
 		
-		$args = compact('name', 'prefix', 'post_set', 'page_set', 'dashboard_set', 'restricted', 'docounter');
+		$args = compact('name', 'prefix', 'post_set', 'page_set', 'restricted', 'docounter', 'cust_types');
 		
 		new ghpseoWritingAdditions($args);
 		
