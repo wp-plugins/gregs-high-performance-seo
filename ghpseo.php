@@ -3,7 +3,7 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://gregsplugins.com/lib/plugin-details/gregs-high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.5.9
+Version: 1.6
 Author: Greg Mulhauser
 Author URI: http://gregsplugins.com/
 */
@@ -327,8 +327,10 @@ class gregsHighPerformanceSEO {
 			if ('' != $secondary) return $this->prepout($secondary);
 			elseif ($this->opt('enable_secondary_titles_legacy') && !$this->opt('legacy_title_invert')) $secondary = $this->get_legacy_title();
 			if ('' != $secondary) return $this->prepout(stripslashes(wp_specialchars_decode($secondary, ENT_QUOTES)));
+			if (!$secondary) $secondary = get_the_title($this->id_to_check());
 		} // end of secondary titles enabled
 		$secondary = ltrim(wp_title('',false));
+		if (!$secondary) $secondary = get_the_title($this->id_to_check());
 		return $secondary;
 	} // end getting secondary title
 
