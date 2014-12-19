@@ -2,8 +2,8 @@
 
 /*  Greg's Setup Handler
 	
-	Copyright (c) 2009-2010 Greg Mulhauser
-	http://counsellingresource.com
+	Copyright (c) 2009-2012 Greg Mulhauser
+	http://gregsplugins.com
 	
 	Released under the GPL license
 	http://www.opensource.org/licenses/gpl-license.php
@@ -28,11 +28,6 @@ class ghpseoSetupHandler {
 	var $plugin_prefix;                       // prefix for this plugin
 	var $options_page_details = array();      // setting up our options page
 	var $consolidate;                         // whether to consolidate options into arrays, or keep discrete
-
-	function ghpseoSetupHandler ($args,$options_page_details) {
-		$this->__construct($args,$options_page_details);
-		return;
-	} 
 
 	function __construct($args,$options_page_details) {
 		extract($args);
@@ -64,10 +59,10 @@ class ghpseoSetupHandler {
 				array("editing_secondary_description_posts", "0", 'intval'),
 				array("editing_secondary_description_pages", "1", 'intval'),
 				array("editing_counter", "1", 'intval'),
+				array("support_custom_post_types", "0", 'intval'),
 				array("restrict_access", "1", 'intval'),
 				array("enable_modifications", "0", 'intval'),
 				array("obnoxious_mode", "0", 'intval'),
-				array("dashboard", "1", 'intval'),
 				array("title_case", "1", 'intval'),
 				array("title_case_exceptions", "a an and by in of the to with", 'wp_filter_nohtml_kses'),
 				),
@@ -162,8 +157,18 @@ class ghpseoSetupHandler {
 				array("index_tag_exclude", "0", 'intval'),
 				array("index_date_exclude", "1", 'intval'),
 				array("index_attachment_exclude", "1", 'intval'),
+				array("depth_author_exclude", "", 'intval'),
+				array("depth_category_exclude", "", 'intval'),
+				array("depth_search_exclude", "", 'intval'),
+				array("depth_tag_exclude", "", 'intval'),
+				array("depth_date_exclude", "", 'intval'),
+				array("depth_attachment_exclude", "", 'intval'),
 				array("index_nofollow", "0", 'intval'),
+				array("index_no_ssl", "0", 'intval'),
+				array("index_always_ssl", "0", 'intval'),
 				array("canonical_enable", "1", 'intval'),
+				array("canonical_no_ssl", "0", 'intval'),
+				array("canonical_always_ssl", "0", 'intval'),
 				array("canonical_disable_builtin", "1", 'intval'),
 				),
 			'maintitles' => array(
@@ -235,6 +240,7 @@ class ghpseoSetupHandler {
 		// run through the settings which belong on this page
 		$filtered = array();
 		foreach ($pagekeys as $setting=>$page) {
+			if (!isset($options[$setting])) $options[$setting] = 0; // special case for checkboxes, absent when 0
 			if ($callbacks[$setting]) $filtered[$setting] = $callbacks[$setting]($options[$setting]);
 			else $filtered[$setting] = $options[$setting];
 		}
@@ -301,6 +307,9 @@ class ghpseoSetupHandler {
 		$prefix_setting = $this->plugin_prefix . '_options_';
 		$prefix = $this->plugin_prefix . '_';
 		if (($this->consolidate) && !get_option($prefix . 'settings')) $this->do_consolidation();
+		// WP 3.0: now we check AGAIN, because on an individual site of a multisite installation, we may have been activated without WP ever running what we registered with our register_activation_hook (are you serious????); we'll take the absence of any settings as an indication that WP failed to run the registered activation function
+		// for now, we'll assume consolidated options -- would need to change this if using discrete options
+		if (($this->consolidate) && !get_option($prefix . 'settings')) $this->activate();
 		if ($this->consolidate) { // if consolidated, do it the quick way
 			register_setting($prefix_setting . 'settings', $prefix . 'settings', array(&$this,'option_filters'));
 		}
@@ -341,7 +350,7 @@ class ghpseoSetupHandler {
 	
 	function plugin_settings_link($links) {
 		$prefix = $this->plugin_prefix;
-		$here = str_replace(basename( __FILE__),"",plugin_basename(__FILE__)); // get plugin folder name
+		$here = basename(dirname( __FILE__)) . '/'; // get plugin folder name
 		$settings = "options-general.php?page={$here}{$prefix}-options.php";
 		$settings_link = "<a href='{$settings}'>" . __('Settings') . '</a>';
 		array_unshift( $links, $settings_link );
