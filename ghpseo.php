@@ -3,12 +3,12 @@
 Plugin Name: Greg's High Performance SEO
 Plugin URI: http://gregsplugins.com/lib/plugin-details/gregs-high-performance-seo/
 Description: Configure over 100 separate on-page SEO characteristics. Fewer than 700 lines of code per page view. No junk: just high performance SEO at its best.
-Version: 1.6.1
+Version: 1.6.2
 Author: Greg Mulhauser
 Author URI: http://gregsplugins.com/
 */
 
-/*  Copyright (c) 2009-12 Greg Mulhauser
+/*  Copyright (c) 2009-15 Greg Mulhauser
 
     This WordPress plugin is released under the GPL license
     http://www.opensource.org/licenses/gpl-license.php

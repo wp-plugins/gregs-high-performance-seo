@@ -2,7 +2,7 @@
 
 /*  Greg's Options Handler
 	
-	Copyright (c) 2009-2012 Greg Mulhauser
+	Copyright (c) 2009-2015 Greg Mulhauser
 	http://gregsplugins.com
 	
 	Released under the GPL license
@@ -60,6 +60,7 @@ class ghpseoOptionsHandler {
 		$subdir .= ($subdir != '') ? '/' : '';
 		$root = WP_PLUGIN_DIR . '/' . $dir . $subdir; // this is where we're looking for our options files
 		$sub = isset ($_GET['submenu']) ? $_GET['submenu'] : '';
+		if ($sub && !isset($this->pages[$sub])) $sub = ''; // is requested page a real sub page?
 		$filetail = ($sub != '') ? "-$sub" : ''; // options file corresponding to this submenu
 		$this->submenu = $sub;
 		$this->box_hook .= $sub; // need to keep track of box states for each separate sub-page

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
 Tested up to: 4.1
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,7 +16,7 @@ Configure over 100 separate on-page SEO characteristics. Load under 700 lines of
 
 = New in This Version =
 
-* Note on WordPress 4.1 compatibility.
+* Fixed potential XSS vulnerability which could affect administrators who are logged in using an old browser and who visit a maliciously crafted URL on their own site. Thanks to Kacper Szurek for responsible disclosure.
 
 = Introduction =
 
@@ -124,10 +124,13 @@ A FAQ is provided at the site, where the list can be updated independently of ne
 
 == Upgrade Notice ==
 
-= 1.6.1, 19 December 2014 =
-* Note on WordPress 4.1 compatibility.
+= 1.6.2, 10 January 2015 =
+* Fixed potential XSS vulnerability which could affect administrators who are logged in using an old browser and who visit a maliciously crafted URL on their own site. Thanks to Kacper Szurek for responsible disclosure.
 
 == Changelog ==
+
+= 1.6.2, 10 January 2015 =
+* Fixed potential XSS vulnerability which could affect administrators who are logged in using an old browser and who visit a maliciously crafted URL on their own site. Thanks to Kacper Szurek for responsible disclosure.
 
 = 1.6.1, 19 December 2014 =
 * Note on WordPress 4.1 compatibility.
