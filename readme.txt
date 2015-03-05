@@ -1,26 +1,41 @@
 === Greg's High Performance SEO ===
 Contributors: GregMulhauser
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HZS4Z96ZND8L4
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 3.0-RC1
-Stable tag: 1.4.1
+Tested up to: 4.1.1
+Stable tag: 1.6.3
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
+Configure over 100 separate on-page SEO characteristics. Load around 700 lines of code per page view. No junk: just high performance SEO at its best.
 
 == Description ==
 
+**NOTE:** Please do NOT use the WordPress forums to seek support for this plugin. Support for GHPSEO is handled on [our own site](http://gregsplugins.com/lib/faq/).
+
+> My complete portfolio of 50 plugins, including this one, and also including the new [Faster Cache for WordPress](http://fastercache.com/) is now [available for adoption](http://gregsplugins.com/lib/sale/)!
+
 = New in This Version =
 
-* More efficient code for handling keywords -- thanks to Aaron for the suggestion
-
-For more details on what's new in the latest main release, version 1.4, please see the update announcement: [WordPress Plugins Get Performance Boost](http://counsellingresource.com/features/2010/06/01/wordpress-plugins-performance-boost/)
+* Updates to documentation and code improvements
+* Note on portfolion of plugins now available for adoption
 
 = Introduction =
 
-WordPress SEO plugins have been done before, but never like this.
+This plugin is very definitely not for everybody. However, if you can answer 'yes' to one or more of the question below, then it might be for you.
 
-Offering direct control over more than 100 separate on-page characteristics important for SEO, while loading fewer than 700 lines of code for each ordinary page view and playing nicely with other plugins, this plugin has been designed from the ground up for performance and compatibility. (By contrast, the most popular SEO plugin configures only around 20 characteristics, demands more than 2000 lines of code for each page view, and employs crude output buffer hacks which can sap performance and trample on many other plugins.)
+* Do you want high performance SEO, but you don't want output buffering hacks?
+
+* Do you want enough configurable options to be able to do something different than what everybody else is doing?
+
+* Do you want an SEO plugin to be something other than a platform for advertising or cross promotion?
+
+* Do you want a plugin that comes with extensive documentation about SEO, written by someone who has been earning a living entirely online since around 2003?
+
+So what's it all about? WordPress SEO plugins have been done before, but never like this.
+
+Offering direct control over more than 100 separate on-page characteristics important for SEO, while loading only around 700 lines of code for each ordinary page view and playing nicely with other plugins, this plugin has been designed from the ground up for performance and compatibility.
 
 This plugin is intended for anyone who wants to help search engines find their material: it's not just for professional marketers, it's not just for those who make their living via the web, and it's certainly not only for developers or full-time settings tweakers.
 
@@ -32,9 +47,7 @@ Greg's High Performance SEO now offers to everyone the kinds of benefits previou
 
 The plugin will help you to leverage the built-in capabilities of WordPress -- which is already a semi-decent SEO platform right out the box -- by taking important content and meta-content that would otherwise not be included on the page and making it visible and useful to humans and machines alike. This is not automatic: it will take a little effort on your part. (Genuine SEO is never automatic.) But this plugin is designed to provide a sufficiently rich palette of tools that optimizing your site as it grows can become second nature to you.
 
-To help with that, in addition to extensive inline explanations for each of its over 100 separate settings, Greg's High Performance SEO also includes a detailed 5000-word usage guide and introduction to WordPress SEO. So you'll never be left in the dark as to what on Earth a particular setting should or could be used for.
-
-Although this plugin is not supported by the author in the WPMU (WordPress Multiuser) environment, independent testing by our community of users confirms that it is fully compatible with the WPMU platform.
+To help with that, in addition to extensive inline explanations for each of its over 100 separate settings, Greg's High Performance SEO also includes a detailed 6000-word usage guide and introduction to WordPress SEO. So you'll never be left in the dark as to what on Earth a particular setting should or could be used for.
 
 = What Can You Do With Greg's High Performance SEO Plugin? =
 
@@ -86,7 +99,13 @@ WordPress itself seamlessly imports legacy data from several plugins, providing 
 * Simple Tagging
 * Ultimate Tag Warrior
 
+== Support ==
+
+Support is provided at the main information site for the plugin: [Greg's Plugins](http://gregsplugins.com/)
+
 == Installation ==
+
+**NOTE:** Please do NOT use the WordPress forums to seek support for this plugin. Support for GHPSEO is handled on [our own site](http://gregsplugins.com/lib/faq/).
 
 1. Unzip the plugin archive
 2. Upload the entire folder `gregs-high-performance-seo` to your plugins folder (usually `/wp-content/plugins/`)
@@ -102,13 +121,11 @@ The plugin includes an extensive usage guide and introduction to SEO, which deta
 
 This plugin fully supports the standard WordPress uninstall interface, available from your plugins page. The uninstallation routine removes all settings for this plugin but leaves intact any additional information you have specified on a per-post or per-page basis. 
 
-= Sustainable Plugin Development =
-
-This plugin also demonstrates the new [Sustainable Plugins Sponsorship Network](http://pluginsponsors.com/), which aims to connect plugin developers with sponsors eager to support their creative efforts. You can easily switch off any sponsorship messages with a quick visit to the 'Contribute' page of your SEO settings; please see the 'Instructions' page for full details.
-
 == Frequently Asked Questions ==
 
-A FAQ is provided at the main information page for the plugin, where the list can be updated independently of new releases: [Greg's High Performance SEO Plugin](http://counsellingresource.com/features/2009/07/23/high-performance-seo/)
+**NOTE:** Please do NOT use the WordPress forums to seek support for this plugin. Support for GHPSEO is handled on [our own site](http://gregsplugins.com/lib/faq/).
+
+A FAQ is provided at the site, where the list can be updated independently of new releases.
 
 == Screenshots ==
 
@@ -118,10 +135,105 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 
 == Upgrade Notice ==
 
-= 1.4.1, 12 June 2010 =
-* More efficient code for handling keywords -- thanks to Aaron for the suggestion
+= 1.6.3, 5 March 2015 =
+* Updates to documentation and code improvements
+* Note on portfolion of plugins now available for adoption
 
 == Changelog ==
+
+= 1.6.3, 5 March 2015 =
+* Updates to documentation and code improvements
+* Note on portfolion of plugins now available for adoption
+
+= 1.6.2, 10 January 2015 =
+* Fixed potential XSS vulnerability which could affect administrators who are logged in using an old browser and who visit a maliciously crafted URL on their own site. Thanks to Kacper Szurek for responsible disclosure.
+
+= 1.6.1, 19 December 2014 =
+* Note on WordPress 4.1 compatibility.
+
+= 1.6, 8 October 2014 =
+* Fixed edge case where secondary title was not delivered correctly on a static front page.
+
+= 1.5.9, 21 August 2014 =
+* New options allow fine-tuning of whether SSL or non-SSL URLs should be indexed.
+
+= 1.5.8, 23 April 2014 =
+* Noted compatibility with WordPress 3.9.
+
+= 1.5.7, 22 November 2013 =
+* Dropped compatibility with very old versions of PHP no longer supported by WordPress.
+
+= 1.5.6, 7 November 2013 =
+* Improved delivery of the on-page secondary description to better match documented behaviour
+* Noted compatibility with latest WordPress version
+
+= 1.5.5, 21 September 2013 =
+* Documentation tweak plus updated WordPress compatibility version.
+
+= 1.5.4, 30 December 2012 =
+* Further workarounds for bugs in WordPress's plugin_basename() function.
+
+= 1.5.3, 29 December 2012 =
+* Under-the-hood improvements to title handling on 404 pages.
+
+= 1.5.2, 15 December 2012 =
+* Replaced some ancient admin page code to enable loading the plugin through a symbolic link.
+* Restored link to support and information site, which had been removed accidentally.
+
+= 1.5.1, 10 November 2012 =
+* Re-confirmed compatibility with WordPress 3.5.
+* Documentation updates.
+
+= 1.5, 7 December 2011 =
+* Supports SEO writing/editing additions for custom post types: enable via 'Writing and Editing Additions' on the main configuration page.
+
+= 1.4.9.6, 26 November 2011 =
+* Removed PluginSponsors.com code following threats that the plugin would be expelled from the plugin repository for using the code to display sponsorship messages
+
+= 1.4.9.5, 27 October 2011 =
+* Documentation updates
+
+= 1.4.9.4, 5 October 2011 =
+* Minor code cleanups
+
+= 1.4.9.3, 3 October 2011 =
+* Minor code cleanups
+
+= 1.4.9.2, 12 May 2011 =
+* Optionally, force canonical URL information always to refer to non-SSL
+* Optionally, set SSL content to noindex
+
+= 1.4.9.1, 23 April 2011 =
+* Indexing exclusions for archives can now be set for a specified depth (e.g., beginning setting `noindex` for tag archives only after the first three pages)
+
+= 1.4.9, 28 March 2011 =
+* Bugfix for head description modifications on multi-page single posts
+
+= 1.4.8, 18 February 2011 =
+* Enhanced handling of head description
+* Testing with WP 3.1 Release Candidate 4
+
+= 1.4.7, 24 January 2011 =
+* Enhanced handling of canonical URLs to better deal with WordPress's inability to detect paging past the end of a multi-page post
+* Testing with WP 3.1 Release Candidate 3
+
+= 1.4.6, 20 January 2011 =
+* Minor code cleanup
+* Testing with WP 3.1 Release Candidate 2
+
+= 1.4.5, 30 December 2010 =
+* Further testing with 3.1 Release Candidate 1
+* Minor code cleanup
+* Removed SEO additions for Dashboard QuickPress
+
+= 1.4.4, 18 December 2010 =
+* Minor code cleanup and speedup
+
+= 1.4.3, 24 June 2010 =
+* Better workaround for WordPress 3.0's problems initialising plugins properly under multisite
+
+= 1.4.2, 24 June 2010 =
+* Workaround for rare problem where WordPress interferes with a newly activated plugin's ability to add options when using multisite/network mode
 
 = 1.4.1, 12 June 2010 =
 * More efficient code for handling keywords -- thanks to Aaron for the suggestion
@@ -205,7 +317,7 @@ A FAQ is provided at the main information page for the plugin, where the list ca
 = 1.0, 23 July 2009 =
 * Initial public release
 
-== Fine Print ==
+== License ==
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License version 3 as published by the Free Software Foundation.
 
