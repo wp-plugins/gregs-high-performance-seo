@@ -1,3 +1,5 @@
-<div style="margin:12px auto; text-align:center">
-&raquo; <a href="http://gregsplugins.com/">Information and FAQs on Greg&rsquo;s Plugins</a> &laquo;
+<div class="postbox" style="padding-bottom: 0.5em; text-align:center; border-color:#ea977b; background-color: #fdf5f2;">
+<h3 class="hndle" style="font-size:14px; padding: 8px 12px; margin:0; line-height:1.4; text-align:left; border-color:#f5cbbd;"><span>Plugins for Adoption!</span></h3>
+<p style="font-size:1.1em; padding: 0 12px 0;">Complete portfolio of <span style="text-decoration:underline;">50 plugins</span>, including this one, now <a href="http://gregsplugins.com/lib/sale/">available for adoption</a>!</p>
+<p style="font-size:1.1em; padding: 0 12px 0;">And including the new &raquo; <a href="http://fastercache.com">Faster Cache for WordPress</a> &laquo;</p>
 </div>

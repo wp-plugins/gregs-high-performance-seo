@@ -1,28 +1,41 @@
 === Greg's High Performance SEO ===
 Contributors: GregMulhauser
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2799661
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HZS4Z96ZND8L4
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 4.1
-Stable tag: 1.6.2
+Tested up to: 4.1.1
+Stable tag: 1.6.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Configure over 100 separate on-page SEO characteristics. Load under 700 lines of code per page view. No junk: just high performance SEO at its best.
+Configure over 100 separate on-page SEO characteristics. Load around 700 lines of code per page view. No junk: just high performance SEO at its best.
 
 == Description ==
 
 **NOTE:** Please do NOT use the WordPress forums to seek support for this plugin. Support for GHPSEO is handled on [our own site](http://gregsplugins.com/lib/faq/).
 
+> My complete portfolio of 50 plugins, including this one, and also including the new [Faster Cache for WordPress](http://fastercache.com/) is now [available for adoption](http://gregsplugins.com/lib/sale/)!
+
 = New in This Version =
 
-* Fixed potential XSS vulnerability which could affect administrators who are logged in using an old browser and who visit a maliciously crafted URL on their own site. Thanks to Kacper Szurek for responsible disclosure.
+* Updates to documentation and code improvements
+* Note on portfolion of plugins now available for adoption
 
 = Introduction =
 
-WordPress SEO plugins have been done before, but never like this.
+This plugin is very definitely not for everybody. However, if you can answer 'yes' to one or more of the question below, then it might be for you.
 
-Offering direct control over more than 100 separate on-page characteristics important for SEO, while loading fewer than 700 lines of code for each ordinary page view and playing nicely with other plugins, this plugin has been designed from the ground up for performance and compatibility. (By contrast, the most popular SEO plugin configures only around 20 characteristics, demands more than 2000 lines of code for each page view, and employs crude output buffer hacks which can sap performance and trample on many other plugins.)
+* Do you want high performance SEO, but you don't want output buffering hacks?
+
+* Do you want enough configurable options to be able to do something different than what everybody else is doing?
+
+* Do you want an SEO plugin to be something other than a platform for advertising or cross promotion?
+
+* Do you want a plugin that comes with extensive documentation about SEO, written by someone who has been earning a living entirely online since around 2003?
+
+So what's it all about? WordPress SEO plugins have been done before, but never like this.
+
+Offering direct control over more than 100 separate on-page characteristics important for SEO, while loading only around 700 lines of code for each ordinary page view and playing nicely with other plugins, this plugin has been designed from the ground up for performance and compatibility.
 
 This plugin is intended for anyone who wants to help search engines find their material: it's not just for professional marketers, it's not just for those who make their living via the web, and it's certainly not only for developers or full-time settings tweakers.
 
@@ -34,9 +47,7 @@ Greg's High Performance SEO now offers to everyone the kinds of benefits previou
 
 The plugin will help you to leverage the built-in capabilities of WordPress -- which is already a semi-decent SEO platform right out the box -- by taking important content and meta-content that would otherwise not be included on the page and making it visible and useful to humans and machines alike. This is not automatic: it will take a little effort on your part. (Genuine SEO is never automatic.) But this plugin is designed to provide a sufficiently rich palette of tools that optimizing your site as it grows can become second nature to you.
 
-To help with that, in addition to extensive inline explanations for each of its over 100 separate settings, Greg's High Performance SEO also includes a detailed 5000-word usage guide and introduction to WordPress SEO. So you'll never be left in the dark as to what on Earth a particular setting should or could be used for.
-
-Although this plugin is not supported by the author in the WPMU (WordPress Multiuser) environment, independent testing by our community of users confirms that it is fully compatible with the WPMU platform.
+To help with that, in addition to extensive inline explanations for each of its over 100 separate settings, Greg's High Performance SEO also includes a detailed 6000-word usage guide and introduction to WordPress SEO. So you'll never be left in the dark as to what on Earth a particular setting should or could be used for.
 
 = What Can You Do With Greg's High Performance SEO Plugin? =
 
@@ -124,10 +135,15 @@ A FAQ is provided at the site, where the list can be updated independently of ne
 
 == Upgrade Notice ==
 
-= 1.6.2, 10 January 2015 =
-* Fixed potential XSS vulnerability which could affect administrators who are logged in using an old browser and who visit a maliciously crafted URL on their own site. Thanks to Kacper Szurek for responsible disclosure.
+= 1.6.3, 5 March 2015 =
+* Updates to documentation and code improvements
+* Note on portfolion of plugins now available for adoption
 
 == Changelog ==
+
+= 1.6.3, 5 March 2015 =
+* Updates to documentation and code improvements
+* Note on portfolion of plugins now available for adoption
 
 = 1.6.2, 10 January 2015 =
 * Fixed potential XSS vulnerability which could affect administrators who are logged in using an old browser and who visit a maliciously crafted URL on their own site. Thanks to Kacper Szurek for responsible disclosure.
