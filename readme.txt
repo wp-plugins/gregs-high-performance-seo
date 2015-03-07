@@ -23,7 +23,13 @@ Configure over 100 separate on-page SEO characteristics. Load around 700 lines o
 
 = Introduction =
 
-This plugin is very definitely not for everybody. However, if you can answer 'yes' to one or more of the question below, then it might be for you.
+WordPress SEO plugins have been done before, but never like this.
+
+Offering direct control over more than 100 separate on-page characteristics important for SEO, while loading only around 700 lines of code for each ordinary page view and playing nicely with other plugins, this plugin has been designed from the ground up for performance and compatibility.
+
+This plugin is intended for anyone who wants to help search engines find their material: it's not just for professional marketers, it's not just for those who make their living via the web, and it's certainly not only for developers or full-time settings tweakers.
+
+Having said that, this plugin is very definitely not for everybody. However, if you can answer 'yes' to one or more of the question below, then it might be for you.
 
 * Do you want high performance SEO, but you don't want output buffering hacks?
 
@@ -32,12 +38,6 @@ This plugin is very definitely not for everybody. However, if you can answer 'ye
 * Do you want an SEO plugin to be something other than a platform for advertising or cross promotion?
 
 * Do you want a plugin that comes with extensive documentation about SEO, written by someone who has been earning a living entirely online since around 2003?
-
-So what's it all about? WordPress SEO plugins have been done before, but never like this.
-
-Offering direct control over more than 100 separate on-page characteristics important for SEO, while loading only around 700 lines of code for each ordinary page view and playing nicely with other plugins, this plugin has been designed from the ground up for performance and compatibility.
-
-This plugin is intended for anyone who wants to help search engines find their material: it's not just for professional marketers, it's not just for those who make their living via the web, and it's certainly not only for developers or full-time settings tweakers.
 
 = Should You Even Use an SEO Plugin? =
 
