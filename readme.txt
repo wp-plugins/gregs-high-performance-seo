@@ -3,8 +3,8 @@ Contributors: GregMulhauser
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HZS4Z96ZND8L4
 Tags: seo, title, keywords, tags, meta, metadata, meta keywords, meta description, excerpt, paged comments, comments, duplicate content, head, canonical, google, noindex, nofollow, noodp, noydir, archives, title case, search engine optimization, WPMU, WordPress MU, WordPress Multiuser, greg mulhauser
 Requires at least: 2.7
-Tested up to: 4.2
-Stable tag: 1.6.3
+Tested up to: 4.2.1
+Stable tag: 1.6.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,8 +18,7 @@ Configure over 100 separate on-page SEO characteristics. Load around 700 lines o
 
 = New in This Version =
 
-* Updates to documentation and code improvements
-* Note on portfolion of plugins now available for adoption
+* Fix for default secondary title handling
 
 = Introduction =
 
@@ -135,11 +134,13 @@ A FAQ is provided at the site, where the list can be updated independently of ne
 
 == Upgrade Notice ==
 
-= 1.6.3, 5 March 2015 =
-* Updates to documentation and code improvements
-* Note on portfolion of plugins now available for adoption
+= 1.6.4, 2 May 2015 =
+* Fix for default secondary title handling
 
 == Changelog ==
+
+= 1.6.4, 2 May 2015 =
+* Fix for default secondary title handling
 
 = 1.6.3, 5 March 2015 =
 * Updates to documentation and code improvements
